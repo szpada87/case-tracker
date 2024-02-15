@@ -1,0 +1,9 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/data-sql-depl.yaml
+      - ./infra/k8s/search-es-depl.yaml
+      - ./infra/k8s/nats-depl.yaml
+      - ./infra/k8s-dev/*

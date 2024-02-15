@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .sidebar {
+        @apply fixed top-0 left-0 h-screen w-16 flex flex-col bg-gray-300 dark:bg-gray-800 shadow-lg;
+    }
+}

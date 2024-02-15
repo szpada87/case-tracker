@@ -1,0 +1,53 @@
+apiVersion: skaffold/v2beta9
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+      - ./infra/k8s-dev/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: case-tracker-base
+      context: utils
+    - image: szpada87/case-client
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.tsx'
+            dest: .
+          - src: '**/*.css'
+            dest: .
+    # - image: szpada87/case-audit
+    #   context: audit
+    #   docker:
+    #     dockerfile: Dockerfile
+    #   sync:
+    #     manual:
+    #       - src: 'src/**/*.ts'
+    #         dest: .
+    - image: szpada87/case-search
+      context: search
+      requires:
+        - image: case-tracker-base
+          alias: BASE
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.cs'
+            dest: .
+    - image: szpada87/case-data
+      context: data
+      requires:
+        - image: case-tracker-base
+          alias: BASE
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src: '**/*.cs'
+            dest: .

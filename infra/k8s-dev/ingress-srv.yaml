@@ -1,0 +1,40 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-service
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+    - host: case-tracker.dev
+      http:
+        paths:
+          - path: /api/data/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: data-srv
+                port:
+                  number: 3000
+          - path: /api/search/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: search-srv
+                port:
+                  number: 3000
+          # - path: /api/audit/?(.*)
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: audit-srv
+          #       port:
+          #         number: 3000
+          - path: /?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: client-srv
+                port:
+                  number: 3000

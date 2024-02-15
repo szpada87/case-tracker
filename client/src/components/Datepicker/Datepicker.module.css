@@ -1,0 +1,35 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .background {
+        @apply bg-gray-200 dark:bg-gray-800;
+    }
+
+    .todayBtn {}
+
+    .clearBtn {}
+
+    .icons {
+        @apply dark:bg-gray-800;
+    }
+
+    .text {
+        @apply text-gray-800;
+    }
+
+    .disabledText {
+        @apply mt-0.5 ring-1 ring-gray-200 dark:ring-gray-800 bg-gray-300 text-gray-100 hover:text-gray-300 dark:bg-gray-700 dark:text-gray-300;
+    }
+
+    .input {
+        @apply bg-white dark:bg-white dark:text-gray-700 border border-inherit shadow appearance-none rounded focus:outline-none focus:ring h-38px focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:border-blue-50;
+    }
+
+    .inputIcon {}
+
+    .selected {
+        @apply bg-green-500;
+    }
+}

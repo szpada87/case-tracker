@@ -1,0 +1,30 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: audit-mongo-depl
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: audit-mongo
+#   template:
+#     metadata:
+#       labels:
+#         app: audit-mongo
+#     spec:
+#       containers:
+#         - name: audit-mongo
+#           image: mongo
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: audit-mongo-srv
+# spec:
+#   selector:
+#     app: audit-mongo
+#   ports:
+#     - name: db
+#       protocol: TCP
+#       port: 27017
+#       targetPort: 27017

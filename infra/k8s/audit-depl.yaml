@@ -1,0 +1,46 @@
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: audit-depl
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabels:
+#       app: audit
+#   template:
+#     metadata:
+#       labels:
+#         app: audit
+#     spec:
+#       containers:
+#         - name: audit
+#           image: szpada87/case-audit
+#           env:
+#             - name: NATS_CLIENT_ID
+#               valueFrom:
+#                 fieldRef:
+#                   fieldPath: metadata.name
+#             - name: NATS_URL
+#               value: 'http://nats-srv:4222'
+#             - name: NATS_CLUSTER_ID
+#               value: case-tracker
+#             - name: MONGO_URI
+#               value: 'mongodb://audit-mongo-srv:27017/audit'
+#             - name: JWT_KEY
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: jwt-secret
+#                   key: JWT_KEY
+# ---
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: audit-srv
+# spec:
+#   selector:
+#     app: audit
+#   ports:
+#     - name: audit
+#       protocol: TCP
+#       port: 3000
+#       targetPort: 3000
