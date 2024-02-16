@@ -1,8 +1,8 @@
 import { useState } from "react"
-import { IOptions } from "../Flowbite/DatePicker/Options"
-import DatePicker from "../Flowbite/DatePicker/DatePicker"
 import withLabel from "../FormInputs/withLabel"
 import classes from "./Datepicker.module.css"
+import DatePicker from "tailwind-datepicker-react"
+import { IOptions } from "tailwind-datepicker-react/types/Options"
 
 interface ITheme {
 	background: string
