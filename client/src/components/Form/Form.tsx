@@ -7,6 +7,7 @@ type FormProps = {
     loading?: boolean,
     error?: Error,
     onSubmit: () => void
+    // TODO: Add footer to customize with default value as Submit button
 }
 
 export const Form = ({ children, loading, error, onSubmit }: FormProps) => {

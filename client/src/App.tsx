@@ -9,10 +9,10 @@ import ErrorPage from './pages/Error/ErrorPage';
 import './index.css'
 import RequiredAuth from './utils/RequiredAuth';
 import Layout from './components/Layout/Layout';
-import CaseListPage from './pages/CaseListPage/CaseListPage';
 import CaseAddPage from './pages/CaseAddPage/CaseAddPage';
 import Authorize from './utils/Authorize';
 import Loader from './components/Loader/Loader';
+import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
 
 const UserRouterProvider = () => {
   const router = createBrowserRouter([
@@ -29,7 +29,7 @@ const UserRouterProvider = () => {
           element: (<RequiredAuth>
             <Authorize roles={['admin', 'user']}>
               <React.Suspense fallback={<div className='mt-16'><Loader /></div>}>
-                <CaseListPage />
+                <CaseSearchPage />
               </React.Suspense>
             </Authorize>
           </RequiredAuth>)

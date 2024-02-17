@@ -1,5 +1,4 @@
 import { FormInput } from '../../components/FormInputs/FormInputs';
-import ContainerPane from '../../components/ContainerPane/ContainerPane';
 import { useApi } from '../../hooks/useApi';
 import useValidationForm, { ValidationErrorInfo } from '../../hooks/useValidationForm';
 import { CaseDetails, CreateCaseRequest } from '../../models/CaseTypes';
@@ -27,7 +26,6 @@ export default function CaseAddPage() {
     });
 
     return (
-        <ContainerPane>
             <main >
                 <Form onSubmit={onSubmit} loading={loading} error={error}>
                     <div className='w-full px-3' >
@@ -50,6 +48,5 @@ export default function CaseAddPage() {
                     </div>
                 </Form>
             </main>
-        </ContainerPane>
     );
 }
