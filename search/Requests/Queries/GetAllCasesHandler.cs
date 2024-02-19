@@ -52,8 +52,7 @@ public class GetAllCasesHandler : IRequestHandler<GetAllCases, List<CaseResponse
                 .Query(_ => qd)
                 .From((request.CurrentPage - 1) * request.PageSize)
                 .Size(request.PageSize)
-                .Source(s => s.Includes(i => i.Fields(validFields.ToArray())))
-            ;
+                .Source(s => s.Includes(i => i.Fields(validFields.ToArray())));
 
         if (!string.IsNullOrEmpty(request.SortBy) && !string.IsNullOrWhiteSpace(request.SortBy))
         {

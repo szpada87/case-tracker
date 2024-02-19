@@ -17,8 +17,12 @@ public static class CaseRoutesExtensions
         app.MapGet("/api/search/", async (IMediator mediator, IMapper mapper, IValidator<GetAllCasesRequest> validator, [AsParameters] GetAllCasesRequest request) =>
         {
             validator.ValidateAndThrow(request);
+            if (request.SortBy is null)
+            {
+                request.SortBy = "created";
+            }
             var result = await mediator.Send(mapper.Map<GetAllCases>(request));
             return Results.Ok(result);
-        }).WithName("SearchCases").RequireAuthorization("cases:read");
+        }).RequireAuthorization("cases:read");
     }
 }
