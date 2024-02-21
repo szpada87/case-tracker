@@ -2,6 +2,7 @@ import useSWR from "swr";
 import useAuthentication from "./useAuthentication";
 import axios from "axios";
 import useSWRInfinite from "swr/infinite";
+import { useEffect } from "react";
 
 type PagedParams = {
     currentPage: number,
@@ -11,13 +12,19 @@ type PagedParams = {
 export const useApiQueryInfinite = <TResult extends Array<any>, TParams extends PagedParams>(
     url: string,
     keys: Array<any>,
-    params: TParams): { data: TResult[], size: number, setSize: (_size: number) => void, loading: boolean } => {
+    params: TParams): {
+        data: TResult[],
+        size: number,
+        setSize: (_size: number | ((_size: number) => number)) => void,
+        loading: boolean
+    } => {
+
     const getKey = (pageIndex: number, previousPageData: TResult) => {
         if (previousPageData && !previousPageData.length) return null
         return [...keys, pageIndex];
     }
     const { getAccessTokenAsync } = useAuthentication();
-    const { data, size, setSize, isValidating } = useSWRInfinite(getKey, async (args) => {
+    const { data, size, setSize, isValidating, isLoading } = useSWRInfinite(getKey, async (args) => {
         const token = await getAccessTokenAsync();
         // page number will be appended as last to keys.
         params.currentPage = args[args.length - 1] + 1;
@@ -27,11 +34,9 @@ export const useApiQueryInfinite = <TResult extends Array<any>, TParams extends 
         })
 
         return response.data as TResult
-    }, {
-        suspense: true
-    });
+    }, {});
 
-    return { data: data || [], size, setSize, loading: isValidating }
+    return { data: data || [], size, setSize, loading: isValidating || isLoading }
 }
 
 export default <TResult, TParams>(url: string, key: string | string[], params: TParams): { data: TResult } => {

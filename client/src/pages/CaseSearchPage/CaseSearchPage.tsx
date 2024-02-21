@@ -4,7 +4,7 @@ import { CaseDetails } from '../../models/CaseTypes';
 import useDebounce from '../../hooks/useDebounce';
 import { useSearchParams } from 'react-router-dom';
 import { Input } from '../../components/FormInputs/Input';
-import { useRef } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import Loader from '../../components/Loader/Loader';
 import useInfiniteScrolling from '../../hooks/useInfiniteScrolling';
 
@@ -24,12 +24,21 @@ function CaseSearchPage() {
             pageSize: 10,
             freeTextSearch: debouncedSearch
         });
-    const sizeRef = useRef(size);
 
-    const observerTarget = useInfiniteScrolling(() => {
-        sizeRef.current += 1;
-        setSize(sizeRef.current);
-    })
+    // NOT perfect solution.
+    const [enabled, setEnabled] = useState(false);
+
+    useEffect(() => {
+        setEnabled(false);
+    }, [debouncedSearch, setEnabled])
+
+    const setSizeCallback = useCallback(() => {
+        setSize(prev => {
+            return prev + 1;
+        });
+    }, [setSize])
+    // TODO: This should be not fired when there are more results to load - API should return metadata about more pages to be loaded.
+    const observerTarget = useInfiniteScrolling(setSizeCallback, enabled)
 
     return (
         <>
@@ -51,6 +60,7 @@ function CaseSearchPage() {
             </main>
             {loading && <Loader />}
             <div ref={observerTarget}></div>
+            {!enabled && size === 1 && <button onClick={() => setEnabled(true)}>Load more</button>}
         </>
     )
 }

@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 
-export default (onScrollCallback: () => void) => {
+export default (onScrollCallback: () => void, enabled: boolean = true) => {
     const observerTarget = useRef(null);
 
     useEffect(() => {
         const observer = new IntersectionObserver(
             entries => {
                 if (entries[0].isIntersecting) {
-                    onScrollCallback();
+                    if (enabled)
+                        onScrollCallback();
                 }
             },
             { threshold: 1 }
@@ -22,7 +23,7 @@ export default (onScrollCallback: () => void) => {
                 observer.unobserve(observerTarget.current);
             }
         };
-    }, [observerTarget]);
+    }, [observerTarget, onScrollCallback, enabled]);
 
     return observerTarget;
 }
