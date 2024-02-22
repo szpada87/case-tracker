@@ -13,6 +13,9 @@ import CaseAddPage from './pages/CaseAddPage/CaseAddPage';
 import Authorize from './utils/Authorize';
 import Loader from './components/Loader/Loader';
 import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
+import { QueryClient, QueryClientProvider } from 'react-query';
+
+const queryClient = new QueryClient()
 
 const UserRouterProvider = () => {
   const router = createBrowserRouter([
@@ -60,7 +63,9 @@ const UserRouterProvider = () => {
 }
 
 function App() {
-  return <UserRouterProvider />
+  return (<QueryClientProvider client={queryClient}>
+    <UserRouterProvider />
+  </QueryClientProvider>)
 }
 
 export default App

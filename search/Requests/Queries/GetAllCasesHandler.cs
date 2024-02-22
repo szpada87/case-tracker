@@ -7,7 +7,7 @@ using Search.Services;
 
 namespace Search.Requests.Queries;
 
-public class GetAllCasesHandler : IRequestHandler<GetAllCases, List<CaseResponse>>
+public class GetAllCasesHandler : IRequestHandler<GetAllCases, PagedResponse<CaseResponse>>
 {
     private readonly IElasticSearchService<CaseDocument> _esService;
     private readonly IMapper _mapper;
@@ -18,7 +18,7 @@ public class GetAllCasesHandler : IRequestHandler<GetAllCases, List<CaseResponse
         _mapper = mapper;
     }
 
-    public async Task<List<CaseResponse>> Handle(GetAllCases request,
+    public async Task<PagedResponse<CaseResponse>> Handle(GetAllCases request,
         CancellationToken cancellationToken)
     {
         QueryContainer qd;
@@ -73,21 +73,26 @@ public class GetAllCasesHandler : IRequestHandler<GetAllCases, List<CaseResponse
             sd.Sort(_ => sort);
         }
 
-        var resp = await _esService.Query(sd);
+        var response = await _esService.Query(sd);
         var list = new List<CaseResponse>();
-        if (resp?.Hits != null)
+        if (response?.Hits != null)
         {
-            foreach (var hit in resp.Hits)
+            foreach (var hit in response.Hits)
             {
                 if (hit.Source == null) continue;
                 hit.Source.Id = Int32.Parse(hit.Id);
                 list.Add(_mapper.Map<CaseResponse>(hit.Source));
             }
 
-            return new List<CaseResponse>(list);
+            int? nextPage = (request.PageSize * request.CurrentPage) < response.HitsMetadata.Total.Value
+                ? request.CurrentPage + 1
+                : null;
+            int currentPage = request.CurrentPage;
+
+            return new PagedResponse<CaseResponse>(new List<CaseResponse>(list), currentPage, nextPage);
         }
 
-        return new List<CaseResponse>();
+        return new PagedResponse<CaseResponse>(new List<CaseResponse>(), request.CurrentPage, null);
     }
 
     private QueryContainer BuildQueryDescriptor(GetAllCases request)
