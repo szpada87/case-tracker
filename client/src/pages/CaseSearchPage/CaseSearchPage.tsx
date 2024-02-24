@@ -1,5 +1,5 @@
 import CaseCard from '../../components/CaseCard/CaseCard';
-import { useInfiniteAuthenticatedQuery } from '../../hooks/useApiQuery';
+import { useInfiniteAuthenticatedQuery } from '../../hooks/useInfiniteAuthenticatedQuery';
 import { CaseDetails } from '../../models/CaseTypes';
 import useDebounce from '../../hooks/useDebounce';
 import { useSearchParams } from 'react-router-dom';

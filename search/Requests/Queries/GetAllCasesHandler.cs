@@ -84,7 +84,7 @@ public class GetAllCasesHandler : IRequestHandler<GetAllCases, PagedResponse<Cas
                 list.Add(_mapper.Map<CaseResponse>(hit.Source));
             }
 
-            int? nextPage = (request.PageSize * request.CurrentPage) < response.HitsMetadata.Total.Value
+            int? nextPage = (request.PageSize * request.CurrentPage) < (response?.HitsMetadata?.Total.Value ?? 0)
                 ? request.CurrentPage + 1
                 : null;
             int currentPage = request.CurrentPage;

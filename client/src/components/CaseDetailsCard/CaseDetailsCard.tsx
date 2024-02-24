@@ -1,9 +1,8 @@
-import { Link } from "react-router-dom";
 import { Status } from "../../models/CaseTypes";
-import classes from "./CaseCard.module.css"
 import CaseStatus from "../CaseStatus/CaseStatus";
+import classes from "./CaseDetailsCard.module.css"
 
-type CaseCardProps = {
+type CaseDetailsProps = {
     id: number,
     owner: string,
     created: string,
@@ -11,9 +10,9 @@ type CaseCardProps = {
     status: Status
 }
 
-function CaseCard({ id, owner, created, description, status }: CaseCardProps) {
+function CaseDetailsCard({ id, owner, created, description, status }: CaseDetailsProps) {
     return (
-        <Link to={`/home/cases/${id}`} className={classes.case}>
+        <div className={classes.case}>
             <div className={classes.avatar_wrapper}>
                 <img src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${owner}`} alt='' className={classes.avatar} />
             </div>
@@ -26,8 +25,8 @@ function CaseCard({ id, owner, created, description, status }: CaseCardProps) {
                 </p>
                 <p className={classes.case_text}>{description}</p>
             </div>
-        </Link>
+        </div>
     );
 }
 
-export default CaseCard
+export default CaseDetailsCard

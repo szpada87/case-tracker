@@ -14,6 +14,7 @@ import Authorize from './utils/Authorize';
 import Loader from './components/Loader/Loader';
 import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
+import CaseDetailsPage from './pages/CaseDetailsPage/CaseDetailsPage';
 
 const queryClient = new QueryClient()
 
@@ -33,6 +34,16 @@ const UserRouterProvider = () => {
             <Authorize roles={['admin', 'user']}>
               <React.Suspense fallback={<div className='mt-16'><Loader /></div>}>
                 <CaseSearchPage />
+              </React.Suspense>
+            </Authorize>
+          </RequiredAuth>)
+        },
+        {
+          path: "cases/:id",
+          element: (<RequiredAuth>
+            <Authorize roles={['admin', 'user']}>
+              <React.Suspense fallback={<div className='mt-16'><Loader /></div>}>
+                <CaseDetailsPage />
               </React.Suspense>
             </Authorize>
           </RequiredAuth>)
