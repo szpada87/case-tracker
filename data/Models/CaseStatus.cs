@@ -2,7 +2,7 @@ namespace Data.Models;
 
 public enum CaseStatus
 {
-    Opened,
+    Opened = 0,
     Closed,
     Cancelled,
     Overdue

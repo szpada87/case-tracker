@@ -15,8 +15,21 @@ import Loader from './components/Loader/Loader';
 import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import CaseDetailsPage from './pages/CaseDetailsPage/CaseDetailsPage';
+import { AxiosError } from 'axios';
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: (count, error) => {
+        console.log(error);
+        if (error instanceof (AxiosError) && error.response?.status === 404) {
+          return false;
+        }
+        return count < 3;
+      }
+    }
+  }
+})
 
 const UserRouterProvider = () => {
   const router = createBrowserRouter([
