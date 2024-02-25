@@ -30,12 +30,10 @@ export default function CaseAddPage() {
     return (
         <main >
             <Form onSubmit={onSubmit} loading={mutation.status === "loading"} error={mutation.error as Error}>
-                <div className='w-full px-3' >
-                    <FormTextArea {...register("description", { required: "This field is required" })} label="Description" error={errors?.description} />
-                </div>
                 <div className="flex flex-wrap mb-2">
                     <div className='w-full md:w-1/2 px-3'>
-                        <FormSelect {...register("status", { valueAsNumber: true
+                        <FormSelect {...register("status", {
+                            valueAsNumber: true
                         })} label="Status" error={errors?.status}>
                             {getEnumKeys(Status).map((key, index) => (
                                 <option key={index} value={Status[key]}>
@@ -49,6 +47,14 @@ export default function CaseAddPage() {
                             <Datepicker onChange={onChange} onBlur={onBlur} options={{ inputNameProp: "expire", inputIdProp: "expire" }} label='Expires' error={errors?.expire} name='expire' />
                         )} />
                     </div>
+                </div>
+                <div className='w-full px-3' >
+                    <FormTextArea {...register("description", {
+                        required: "This field is required", maxLength: {
+                            value: 256,
+                            message: "This field must be less than 256 characters."
+                        }
+                    })} label="Description" error={errors?.description} />
                 </div>
             </Form>
         </main>

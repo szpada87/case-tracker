@@ -20,7 +20,7 @@
   }
 
   .avatar_wrapper {
-    @apply w-12 m-0 mx-auto mb-auto;
+    @apply w-12 min-w-12 m-0 mx-auto mb-auto;
   }
 
   .avatar {

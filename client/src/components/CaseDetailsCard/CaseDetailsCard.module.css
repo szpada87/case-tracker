@@ -24,7 +24,7 @@
   }
 
   .avatar {
-    @apply mr-4 w-12 h-full rounded-full shadow-md object-cover bg-gray-100 mb-auto mt-0 mx-0;
+    @apply mr-4 w-12 min-w-12 h-full rounded-full shadow-md object-cover bg-gray-100 mb-auto mt-0 mx-0;
   }
 
   .timestamp {
