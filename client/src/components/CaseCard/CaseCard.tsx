@@ -13,7 +13,7 @@ type CaseCardProps = {
 
 function CaseCard({ id, owner, created, description, status }: CaseCardProps) {
     return (
-        <Link to={`/home/cases/${id}`} className={classes.case}>
+        <Link to={`/dashboard/cases/${id}`} className={classes.case}>
             <div className={classes.avatar_wrapper}>
                 <img src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${owner}`} alt='' className={classes.avatar} />
             </div>

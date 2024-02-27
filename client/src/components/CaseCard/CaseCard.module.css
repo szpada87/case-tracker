@@ -4,7 +4,7 @@
 
 @layer components {
   .case {
-    @apply flex flex-row justify-evenly align-middle py-4 px-8 m-4 mt-0 bg-gray-50 dark:bg-gray-600 shadow-md rounded cursor-pointer hover:ring-1;
+    @apply flex flex-row justify-evenly align-middle py-4 px-8 m-4 mt-0 bg-ct_bg-50 dark:bg-ct_bg-600 shadow-md rounded cursor-pointer hover:ring-1;
   }
 
   .case_content {
@@ -12,11 +12,11 @@
   }
 
   .case_text {
-    @apply text-lg text-left text-gray-800 dark:text-white mr-auto whitespace-normal line-clamp-3;
+    @apply text-lg text-left text-ct_text-800 dark:text-ct_text-50 mr-auto whitespace-normal line-clamp-3;
   }
 
   .case_id {
-    @apply text-left font-semibold text-gray-800 dark:text-white mr-2;
+    @apply text-left font-semibold text-ct_text-800 dark:text-ct_text-50 mr-2;
   }
 
   .avatar_wrapper {
@@ -24,10 +24,10 @@
   }
 
   .avatar {
-    @apply mr-4 w-12 h-full rounded-full shadow-md object-cover bg-gray-100 mb-auto mt-0 mx-0;
+    @apply mr-4 w-12 h-full rounded-full shadow-md object-cover bg-ct_bg-100 mb-auto mt-0 mx-0;
   }
 
   .timestamp {
-    @apply text-xs text-left font-semibold text-gray-500 dark:text-gray-300 ml-2;
+    @apply text-xs text-left font-semibold text-ct_text-500 dark:text-ct_text-300 ml-2;
   }
 }

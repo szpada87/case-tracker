@@ -10,17 +10,17 @@ const Footer = () => {
                 </span>
                 <ul className={classes.link_list}>
                     <li>
-                        <Link className={classes.navigation_link} to='/home' >
+                        <Link className={classes.navigation_link} to='/dashboard' >
                             Home
                         </Link>
                     </li>
                     <li>
-                        <Link className={classes.navigation_link} to='/home/cases' >
+                        <Link className={classes.navigation_link} to='/dashboard/cases' >
                             Search
                         </Link>
                     </li>
                     <li>
-                        <Link className={classes.navigation_link} to='/home/add' >
+                        <Link className={classes.navigation_link} to='/dashboard/add' >
                             Add
                         </Link>
                     </li>

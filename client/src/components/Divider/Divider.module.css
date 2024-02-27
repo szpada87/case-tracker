@@ -4,8 +4,8 @@
 
 @layer components {
     .sidebar_hr {
-        @apply bg-gray-200 dark:bg-gray-800 
-        border border-gray-200 dark:border-gray-800 rounded-full
+        @apply bg-ct_bg-200 dark:bg-ct_bg-800 
+        border border-ct_bg-200 dark:border-ct_bg-800 rounded-full
         mx-2;
       }
 }

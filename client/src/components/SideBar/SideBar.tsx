@@ -28,10 +28,10 @@ const SideBar = () => {
         <nav className={classes.sidebar}>
             <SideBarIcon icon={<BsHouse size="28" />} />
             <Divider />
-            {isUser && <Link to='/home/cases' >
+            {isUser && <Link to='/dashboard/cases' >
                 <SideBarIcon icon={<FaList size="22" />} />
             </Link>}
-            {isAdmin && <Link to='/home/add' >
+            {isAdmin && <Link to='/dashboard/add' >
                 <SideBarIcon icon={<BsPlus size="32" />} />
             </Link>}
             <Divider />

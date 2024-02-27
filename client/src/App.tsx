@@ -8,7 +8,7 @@ import {
 import ErrorPage from './pages/Error/ErrorPage';
 import './index.css'
 import RequiredAuth from './utils/RequiredAuth';
-import Layout from './components/Layout/Layout';
+import { Layout, DashboardLayout } from './components/Layout/Layout';
 import CaseAddPage from './pages/CaseAddPage/CaseAddPage';
 import Authorize from './utils/Authorize';
 import Loader from './components/Loader/Loader';
@@ -16,6 +16,7 @@ import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import CaseDetailsPage from './pages/CaseDetailsPage/CaseDetailsPage';
 import { AxiosError } from 'axios';
+import HomePage from './pages/HomePage/HomePage';
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -34,11 +35,11 @@ const queryClient = new QueryClient({
 const UserRouterProvider = () => {
   const router = createBrowserRouter([
     {
-      path: "/home",
+      path: "/dashboard",
       element:
-        <Layout>
+        <DashboardLayout>
           <Outlet />
-        </Layout>,
+        </DashboardLayout>,
       errorElement: <ErrorPage />,
       children: [
         {
@@ -74,7 +75,7 @@ const UserRouterProvider = () => {
     {
       path: "/",
       element: <Layout>
-        <Outlet />
+        <HomePage />
       </Layout>,
       errorElement: <ErrorPage />,
     },

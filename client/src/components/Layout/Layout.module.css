@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .content_container {
+    @apply relative m-0 min-h-screen h-full w-auto overflow-hidden flex flex-col;
+  }
+
+  .background {
+    @apply overflow-hidden h-full w-full bg-ct_bg-300 dark:bg-ct_bg-700
+  }
+
+  .content_list {
+    @apply flex flex-col items-center h-auto w-full m-4 mx-auto px-0 pl-4 pb-12 overflow-y-scroll;
+  }
+}

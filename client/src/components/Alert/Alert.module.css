@@ -4,7 +4,7 @@
 
 @layer components {
     .alert {
-        @apply w-full bg-red-100 border border-red-400 text-red-700 mx-auto px-4 py-3 rounded relative mb-4;
+        @apply w-full bg-ct_alert-100 border border-ct_alert-400 text-ct_alert-700 mx-auto px-4 py-3 rounded relative mb-4;
     }
 
     .title {

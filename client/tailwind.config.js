@@ -1,5 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
+
 export default {
   content: [
     "./index.html",
@@ -14,6 +16,15 @@ export default {
       },
       height: {
         '38px': '38px'
+      },
+      colors: {
+        ct_bg: colors.gray,
+        ct_text: colors.gray,
+        ct_link_active: colors.pink[400],
+        ct_btn_bg: colors.gray,
+        ct_accent: colors.green,
+        ct_alert: colors.red,
+        ct_focus: colors.blue
       }
     },
   },

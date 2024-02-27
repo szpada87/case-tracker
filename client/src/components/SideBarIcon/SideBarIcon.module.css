@@ -3,13 +3,7 @@
 @tailwind utilities;
 
 @layer components {
-    .sidebar_icon {
-      @apply relative flex items-center justify-center 
-      h-12 w-12 mt-2 mb-2 mx-auto  
-    bg-gray-500 hover:bg-green-600 dark:bg-gray-700 
-    text-green-500 hover:text-white hover:rotate-12
-      hover:rounded-xl rounded-3xl
-      transition-all duration-300 ease-linear
-      cursor-pointer shadow-lg ;
-    }
+  .sidebar_icon {
+    @apply relative flex items-center justify-center h-12 w-12 mt-2 mb-2 mx-auto bg-ct_btn_bg-500 hover:bg-ct_accent-600 dark:bg-ct_btn_bg-700 text-ct_accent-500 hover:text-ct_text-50 hover:rotate-12 hover:rounded-xl rounded-3xl transition-all duration-300 ease-linear cursor-pointer shadow-lg;
+  }
 }
