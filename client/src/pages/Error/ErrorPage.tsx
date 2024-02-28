@@ -1,5 +1,6 @@
 import { useRouteError } from "react-router-dom";
 import classes from "./Error.module.css";
+import { Card } from "../../components/Card/Card";
 
 type ErrorType = {
   statusText?: string,
@@ -12,13 +13,13 @@ export default function ErrorPage() {
 
   return (
     <main id="error-page" className={classes.page_container}>
-      <div className={classes.card}>
+      <Card className={classes.card}>
         <h1 className={classes.title}>Oops!</h1>
         <p className={classes.small}>Sorry, an unexpected error has occurred.</p>
         <p className={classes.description}>
           {error.statusText || error.message}
         </p>
-      </div>
+      </Card>
     </main>
   );
 }

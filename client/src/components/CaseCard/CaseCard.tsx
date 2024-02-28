@@ -1,31 +1,30 @@
 import { Link } from "react-router-dom";
-import { Status } from "../../models/CaseTypes";
+import { CaseDetails, Status } from "../../models/CaseTypes";
 import classes from "./CaseCard.module.css"
 import CaseStatus from "../CaseStatus/CaseStatus";
+import { Card } from "../Card/Card";
+import { Avatar } from "../Avatar/Avatar";
 
 type CaseCardProps = {
-    id: number,
-    owner: string,
-    created: string,
-    description: string,
-    status: Status
+    caseData: CaseDetails
 }
 
-function CaseCard({ id, owner, created, description, status }: CaseCardProps) {
+function CaseCard({ caseData }: CaseCardProps) {
     return (
-        <Link to={`/dashboard/cases/${id}`} className={classes.case}>
-            <div className={classes.avatar_wrapper}>
-                <img src={`https://api.dicebear.com/7.x/pixel-art/svg?seed=${owner}`} alt='' className={classes.avatar} />
-            </div>
-
-            <div className={classes.case_content}>
-                <p className={classes.case_id}>
-                    {id}
-                    <small className={classes.timestamp}>{new Date(created).toLocaleDateString("en-US")}</small>
-                    <CaseStatus status={status} />
-                </p>
-                <p className={classes.case_text}>{description}</p>
-            </div>
+        <Link to={`/dashboard/cases/${caseData.id}`}>
+            <Card className={classes.card}>
+                <div className={classes.case}>
+                    <Avatar owner={caseData.ownerId} />
+                    <div className={classes.case_content}>
+                        <p className={classes.case_id}>
+                            {caseData.id}
+                            <small className={classes.timestamp}>{new Date(caseData.created).toLocaleDateString("en-US")}</small>
+                            <CaseStatus status={caseData.status} />
+                        </p>
+                        <p className={classes.case_text}>{caseData.description}</p>
+                    </div>
+                </div>
+            </Card>
         </Link>
     );
 }

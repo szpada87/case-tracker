@@ -4,22 +4,22 @@
 
 @layer components {
     .page_container {
-        @apply grid place-content-center bg-gray-300 dark:bg-gray-700 min-h-screen h-full w-full;
+        @apply grid place-content-center bg-ct_bg-300 dark:bg-ct_bg-700 min-h-screen h-full w-full;
     }
 
     .card {
-        @apply py-8 px-12 w-auto bg-gray-50 dark:bg-gray-600 shadow-md rounded;
+        @apply py-8 px-12;
     }
 
     .title {
-        @apply text-3xl text-center font-bold;
+        @apply text-3xl text-center font-bold dark:text-ct_text-50;
     }
 
     .small {
-        @apply mt-4 text-xs text-center text-gray-500 dark:text-gray-300;
+        @apply mt-4 text-xs text-center text-ct_text-500 dark:text-ct_text-300;
       }
 
     .description {
-        @apply mt-4 text-center text-gray-800 dark:text-white whitespace-normal;
+        @apply mt-4 text-center text-ct_text-800 dark:text-ct_text-50 whitespace-normal;
     }
 }

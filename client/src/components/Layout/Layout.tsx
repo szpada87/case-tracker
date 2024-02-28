@@ -8,8 +8,6 @@ type LayoutProps = {
     children: ReactNode
 }
 
-// TODO: rename route home -> dashboard
-// TODO: Create Call to action home page
 export const Layout = ({ children }: LayoutProps) => {
     return (
         <div className='flex'>

@@ -26,7 +26,6 @@ public class CreateCaseCommandHandler : IRequestHandler<CreateCaseCommand, CaseD
 
     public async Task<CaseDetailsResponse> Handle(CreateCaseCommand command, CancellationToken cancellationToken)
     {
-        // TODO: to transaction?
         var caseEntry = _mapper.Map<Case>(command);
         var newCase = await _caseRepository.Create(caseEntry);
         await _mediator.Send(new PublishNotificationCommand<CaseCreatedEvent>("case:added", _mapper.Map<CaseCreatedEvent>(newCase)), cancellationToken);

@@ -43,11 +43,7 @@ function CaseSearchPage() {
             <main className='w-full' >
                 {cases?.pages.map(page => page.data.map((result) => <CaseCard
                     key={result.id}
-                    id={result.id}
-                    owner={result.ownerId}
-                    created={result.created}
-                    status={result.status}
-                    description={result.description} />))}
+                    caseData={result} />))}
             </main>
             {(status === "loading" || isFetchingNextPage) && <Loader />}
             <div ref={observerTarget}></div>
