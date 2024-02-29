@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .avatar_wrapper {
+        @apply w-12 min-w-12 m-0 mx-auto mb-auto;
+    }
+
+    .avatar {
+        @apply mr-4 w-12 h-full rounded-full shadow-md object-cover bg-ct_bg-100 mb-auto mt-0 mx-0;
+    }
+}

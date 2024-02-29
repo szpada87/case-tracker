@@ -2,11 +2,12 @@ import CaseCard from '../../components/CaseCard/CaseCard';
 import { useInfiniteAuthenticatedQuery } from '../../hooks/useInfiniteAuthenticatedQuery';
 import { CaseDetails } from '../../models/CaseTypes';
 import useDebounce from '../../hooks/useDebounce';
-import { useSearchParams } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Input } from '../../components/FormInputs/Input';
 import { useCallback } from 'react';
 import Loader from '../../components/Loader/Loader';
 import useInfiniteScrolling from '../../hooks/useInfiniteScrolling';
+import classes from './CaseSearchPage.module.css';
 
 type SearchCaseRequest = {
     freeTextSearch: string,
@@ -41,11 +42,14 @@ function CaseSearchPage() {
                 }} />
             </div>
             <main className='w-full' >
-                {cases?.pages.map(page => page.data.map((result) => <CaseCard
-                    key={result.id}
-                    caseData={result} />))}
-            </main>
-            {(status === "loading" || isFetchingNextPage) && <Loader />}
+                {cases?.pages.map(page => page.data.map((result) =>
+                    <Link key={result.id} className={classes.card_hover} to={`/dashboard/cases/${result.id}`}>
+                        <CaseCard
+                            caseData={result} />
+                    </Link>))}
+            </main >
+            {(status === "loading" || isFetchingNextPage) && <Loader />
+            }
             <div ref={observerTarget}></div>
         </>
     )

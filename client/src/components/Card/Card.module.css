@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .card {
+        @apply w-auto bg-ct_bg-50 dark:bg-ct_bg-600 shadow-md rounded;
+    }
+}
