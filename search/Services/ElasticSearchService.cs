@@ -42,9 +42,9 @@ public class ElasticSearchService<T> : IElasticSearchService<T> where T : class
         return searchResponse.IsValid ? searchResponse.Documents.ToList() : default;
     }
 
-    public async Task<ISearchResponse<T>?> Query(SearchDescriptor<T> sd)
+    public async Task<ISearchResponse<T>?> Query(SearchDescriptor<T> sd, CancellationToken cancellationToken)
     {
-        var searchResponse = await _client.SearchAsync<T>(sd);
+        var searchResponse = await _client.SearchAsync<T>(sd, cancellationToken);
         return searchResponse;
     }
 

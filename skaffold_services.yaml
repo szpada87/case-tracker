@@ -20,6 +20,8 @@ build:
         manual:
           - src: '**/*.tsx'
             dest: .
+          - src: '**/*.ts'
+            dest: .
           - src: '**/*.css'
             dest: .
     # - image: szpada87/case-audit

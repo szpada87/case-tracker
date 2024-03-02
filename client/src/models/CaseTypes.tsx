@@ -5,14 +5,11 @@ export enum Status {
     Overdue
 }
 
-export type CreateCaseRequest = {
+export type CaseDetails = {
+    id: number,
+    ownerId: string,
+    created: string,
     description: string,
     status: Status,
     expire: Date
 }
-
-export type CaseDetails = {
-    id: number,
-    ownerId: string,
-    created: string
-} & CreateCaseRequest

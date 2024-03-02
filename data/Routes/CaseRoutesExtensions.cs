@@ -32,6 +32,6 @@ public static class CaseRoutesExtensions
             string userId = user.Identity?.Name;
             var newCase = await mediator.Send(new CreateCaseCommand(request, userId));
             return Results.CreatedAtRoute("CaseDetailsById", new { id = newCase.Id }, newCase);
-        }).RequireAuthorization("cases:add");
+        }).WithName("CreateCase").RequireAuthorization("cases:add");
     }
 }

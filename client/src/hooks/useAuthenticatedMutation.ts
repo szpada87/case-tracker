@@ -1,14 +1,15 @@
+import { AxiosRequestConfig, AxiosResponse } from "axios";
 import useAuthentication from "./useAuthentication"
 import { useMutation, useQueryClient } from "react-query";
 
 export type ApiConfig<TResponse> = {
     onSuccess?: (data?: TResponse) => void,
-    onError?: (e: Error) => boolean
+    onError?: (e: Error) => boolean,
+    resetQueries?: boolean
 }
 
 export const useAuthenticatedMutation = <TRequest, TResponse>(
-    url: string,
-    fetcher: (url: string, request: TRequest, config: any) => Promise<TResponse>,
+    mutationFn: (request: TRequest, options: AxiosRequestConfig) => Promise<AxiosResponse<TResponse>>,
     keys: string[],
     options?: ApiConfig<TResponse>) => {
     const { getAccessTokenAsync } = useAuthentication();
@@ -17,7 +18,7 @@ export const useAuthenticatedMutation = <TRequest, TResponse>(
         mutationFn: async (request: TRequest) => {
             try {
                 const token = await getAccessTokenAsync();
-                return await fetcher(url, request, {
+                return await mutationFn(request, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                         Accept: 'application/json, text/plain',
@@ -30,9 +31,13 @@ export const useAuthenticatedMutation = <TRequest, TResponse>(
                 }
             }
         },
-        onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: [...keys] });
-            options?.onSuccess && options.onSuccess(data);
+        onSuccess: async (data) => {
+            await queryClient.invalidateQueries({ queryKey: [...keys] });
+            if (options?.resetQueries) {
+                // This has to be done in order for the infinite query to refresh properly on mount.
+                await queryClient.resetQueries(keys);
+            }
+            options?.onSuccess && options.onSuccess(data?.data);
         }
     });
 

@@ -73,7 +73,7 @@ public class GetAllCasesHandler : IRequestHandler<GetAllCases, PagedResponse<Cas
             sd.Sort(_ => sort);
         }
 
-        var response = await _esService.Query(sd);
+        var response = await _esService.Query(sd, cancellationToken);
         var list = new List<CaseResponse>();
         if (response?.Hits != null)
         {

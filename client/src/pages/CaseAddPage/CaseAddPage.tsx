@@ -1,19 +1,20 @@
 import { FormSelect, FormTextArea } from '../../components/FormInputs/FormInputs';
 import { useAuthenticatedMutation } from '../../hooks/useAuthenticatedMutation';
 import useValidationForm, { ValidationErrorInfo } from '../../hooks/useValidationForm';
-import { CreateCaseRequest, Status } from '../../models/CaseTypes';
+import { Status } from '../../models/CaseTypes';
 import { Form } from '../../components/Form/Form';
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import { Controller } from 'react-hook-form';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import getEnumKeys from '../../utils/getEnumKeys';
+import { dataApi } from '../../utils/api';
+import { CreateCaseRequest } from '../../shared/api/axios-client';
 
 export default function CaseAddPage() {
     const { register, handleSubmit, control, errors, setApiValidationErrors } = useValidationForm<CreateCaseRequest>();
-
-    const mutation = useAuthenticatedMutation("/api/data", axios.post, ["cases"], {
-        // TODO: move to useCallback
-        // TODO: extract common logic
+    const mutation = useAuthenticatedMutation<CreateCaseRequest, unknown>(async (request, options) => {
+        return await dataApi.createCase({ createCaseRequest: request }, options);
+    }, ["cases"], {
         onError: (e) => {
             if (e instanceof AxiosError && e.response?.status === 400 && e.response?.data) {
                 const responseInfo = e.response?.data as ValidationErrorInfo<CreateCaseRequest>;
@@ -21,7 +22,8 @@ export default function CaseAddPage() {
                 return true;
             }
             return false;
-        }
+        },
+        resetQueries: true
     });
     const onSubmit = handleSubmit((data) => {
         mutation.mutate(data);

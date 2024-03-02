@@ -8,24 +8,18 @@ import { useCallback } from 'react';
 import Loader from '../../components/Loader/Loader';
 import useInfiniteScrolling from '../../hooks/useInfiniteScrolling';
 import classes from './CaseSearchPage.module.css';
-
-type SearchCaseRequest = {
-    freeTextSearch: string,
-    currentPage: number,
-    pageSize: number
-}
+import { searchApi } from '../../utils/api';
 
 function CaseSearchPage() {
     const [searchParams, setSearchParams] = useSearchParams({ q: "" })
     const q = searchParams.get("q");
+    // TODO: useDeferred? This introduces a flickering during search
+    // https://react.dev/reference/react/useDeferredValue Extract fetching logic into a child component wrapped into suspense!
     const debouncedSearch = useDebounce(q);
 
-    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } = useInfiniteAuthenticatedQuery<CaseDetails, SearchCaseRequest>("/api/search", ["cases", debouncedSearch],
-        {
-            currentPage: 1,
-            pageSize: 10,
-            freeTextSearch: debouncedSearch
-        });
+    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } = useInfiniteAuthenticatedQuery<CaseDetails>(async (page, options) => {
+        return await searchApi.searchCases({ currentPage: page, pageSize: 10, freeTextSearch: debouncedSearch }, options);
+    }, ["cases", debouncedSearch]);
 
     const onScroll = useCallback(() => {
         fetchNextPage();

@@ -1,5 +1,4 @@
-import { Link } from "react-router-dom";
-import { CaseDetails, Status } from "../../models/CaseTypes";
+import { CaseDetails } from "../../models/CaseTypes";
 import classes from "./CaseCard.module.css"
 import CaseStatus from "../CaseStatus/CaseStatus";
 import { Card } from "../Card/Card";

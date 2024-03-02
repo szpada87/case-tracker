@@ -2,12 +2,13 @@ import { ReactNode } from "react"
 import classes from "./Card.module.css"
 
 type CardProps = {
-    children: ReactNode
+    children: ReactNode,
+    className?: string
 }
 
-export const Card = ({ children }: CardProps) => {
+export const Card = ({ children, className }: CardProps) => {
     return (
-        <div className={classes.card}>
+        <div className={`${classes.card} ${className}`}>
             {children}
         </div>
     )
