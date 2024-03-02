@@ -14,4 +14,12 @@
   .content_list {
     @apply flex flex-col items-center h-auto w-full m-4 mx-auto px-0 pl-4 pb-12 overflow-y-scroll;
   }
+
+  .user_name {
+    @apply font-semibold;
+  }
+
+  .user_icon {
+    @apply mr-3 ml-4;
+  }
 }
