@@ -16,10 +16,10 @@
   }
 
   .user_name {
-    @apply font-semibold;
+    @apply font-semibold hidden sm:block;
   }
 
   .user_icon {
-    @apply mr-3 ml-4;
+    @apply mr-0 sm:mr-3 ml-4;
   }
 }

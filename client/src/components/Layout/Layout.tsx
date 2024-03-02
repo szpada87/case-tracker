@@ -38,7 +38,7 @@ export const DashboardLayout = ({ children }: LayoutProps) => {
         <div className='flex'>
             <SideBar />
             <div className={classes.background}>
-                <div className="ml-16">
+                <div className="ml-7">
                     <div className={classes.content_container}>
                         <TopNavigation>
                             {!isAuthenticated && <TopNavigationLink>Hello, there!</TopNavigationLink>}

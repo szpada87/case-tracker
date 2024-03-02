@@ -12,7 +12,7 @@
   }
 
   .title_hashtag {
-    @apply text-lg tracking-wider font-semibold text-ct_text-500 ml-2 my-auto;
+    @apply text-lg tracking-wider font-semibold text-ct_text-500 ml-8 my-auto;
   }
 
   .top_navigation_link {

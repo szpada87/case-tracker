@@ -4,6 +4,6 @@
 
 @layer components {
     .sidebar {
-        @apply fixed z-10 top-0 left-0 h-screen w-16 flex flex-col bg-ct_bg-300 dark:bg-ct_bg-800 shadow-lg;
+        @apply fixed z-10 top-0 left-0 h-screen w-7 pl-1 flex flex-col bg-ct_bg-300 dark:bg-ct_bg-800 shadow-lg
     }
 }

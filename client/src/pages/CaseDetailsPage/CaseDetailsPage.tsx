@@ -15,7 +15,7 @@ function CaseDetailsPage() {
     });
 
     return (
-        <main className='w-full mt-1' >
+        <main className='w-full mt-1 p-4' >
             {data && <CaseCard caseData={data} />}
         </main>
     )
