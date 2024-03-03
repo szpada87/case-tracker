@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useModal } from "../../components/Modal/useModal";
 import { useAuthenticatedMutation } from "../../hooks/useAuthenticatedMutation";
 import useValidationForm, { ValidationErrorInfo } from "../../hooks/useValidationForm";
-import { CreateCaseRequest } from "../../shared/api/axios-client";
-import { CaseDetails } from "../../models/CaseTypes";
+import { CaseDetailsResponse, CreateCaseRequest } from "../../shared/api/axios-client";
 import { dataApi } from "../../utils/api";
 import { AxiosError } from "axios";
 
@@ -13,7 +12,7 @@ export default function() {
     // TODO: BUG: calendar control does not reset properly
     const { modalConf, showModal, closeModal } = useModal(onclose = () => reset());
     // TODO: issue with return type - issue with open api swagger doc
-    const mutation = useAuthenticatedMutation<CreateCaseRequest, CaseDetails>(async (request, options) => {
+    const mutation = useAuthenticatedMutation<CreateCaseRequest, CaseDetailsResponse>(async (request, options) => {
         return await dataApi.createCase({ createCaseRequest: request }, options);
     }, ["cases"], {
         onError: (e) => {

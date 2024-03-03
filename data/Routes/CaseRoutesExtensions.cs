@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.Net;
 using System.Security.Claims;
 using Data.Models.DataTransferObjects;
 using Data.Requests.Commands;
@@ -32,6 +33,11 @@ public static class CaseRoutesExtensions
             string userId = user.Identity?.Name;
             var newCase = await mediator.Send(new CreateCaseCommand(request, userId));
             return Results.CreatedAtRoute("CaseDetailsById", new { id = newCase.Id }, newCase);
-        }).WithName("CreateCase").RequireAuthorization("cases:add");
+        }).WithName("CreateCase").WithOpenApi(operation => {
+            operation.Description = "Creates new case.";
+            return operation;
+        }).Produces<CaseDetailsResponse>((int)HttpStatusCode.Created)
+        .ProducesValidationProblem((int)HttpStatusCode.BadRequest)
+        .RequireAuthorization("cases:add");
     }
 }

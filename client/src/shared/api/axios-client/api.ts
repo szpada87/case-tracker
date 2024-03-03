@@ -24,6 +24,49 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 /**
  * 
  * @export
+ * @interface CaseDetailsResponse
+ */
+export interface CaseDetailsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CaseDetailsResponse
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseDetailsResponse
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseDetailsResponse
+     */
+    'created'?: string;
+    /**
+     * 
+     * @type {CaseStatus}
+     * @memberof CaseDetailsResponse
+     */
+    'status'?: CaseStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseDetailsResponse
+     */
+    'expire'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseDetailsResponse
+     */
+    'ownerId'?: string | null;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -140,7 +183,7 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * 
+         * test
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -241,12 +284,12 @@ export const DataApiFp = function(configuration?: Configuration) {
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * 
+         * test
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async createCase(createCaseRequest: CreateCaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async createCase(createCaseRequest: CreateCaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CaseDetailsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createCase(createCaseRequest, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -287,12 +330,12 @@ export const DataApiFactory = function (configuration?: Configuration, basePath?
             return localVarFp.caseDetailsById(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * 
+         * test
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        createCase(createCaseRequest: CreateCaseRequest, options?: any): AxiosPromise<void> {
+        createCase(createCaseRequest: CreateCaseRequest, options?: any): AxiosPromise<CaseDetailsResponse> {
             return localVarFp.createCase(createCaseRequest, options).then((request) => request(axios, basePath));
         },
         /**
@@ -363,7 +406,7 @@ export class DataApi extends BaseAPI {
     }
 
     /**
-     * 
+     * test
      * @param {DataApiCreateCaseRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
