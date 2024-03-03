@@ -1,33 +1,25 @@
 import { FormSelect, FormTextArea } from '../../components/FormInputs/FormInputs';
-import { useAuthenticatedMutation } from '../../hooks/useAuthenticatedMutation';
-import useValidationForm, { ValidationErrorInfo } from '../../hooks/useValidationForm';
 import { Status } from '../../models/CaseTypes';
 import { Form } from '../../components/Form/Form';
-import { AxiosError } from 'axios';
 import { Controller } from 'react-hook-form';
 import Datepicker from '../../components/Datepicker/Datepicker';
 import getEnumKeys from '../../utils/getEnumKeys';
-import { dataApi } from '../../utils/api';
-import { CreateCaseRequest } from '../../shared/api/axios-client';
+import Modal from '../../components/Modal/Modal';
+import { Button } from '../../components/Button/Button';
+import useCaseAdd from './useCaseAdd';
+
 
 export default function CaseAddPage() {
-    const { register, handleSubmit, control, errors, setApiValidationErrors } = useValidationForm<CreateCaseRequest>();
-    const mutation = useAuthenticatedMutation<CreateCaseRequest, unknown>(async (request, options) => {
-        return await dataApi.createCase({ createCaseRequest: request }, options);
-    }, ["cases"], {
-        onError: (e) => {
-            if (e instanceof AxiosError && e.response?.status === 400 && e.response?.data) {
-                const responseInfo = e.response?.data as ValidationErrorInfo<CreateCaseRequest>;
-                setApiValidationErrors(responseInfo);
-                return true;
-            }
-            return false;
-        },
-        resetQueries: true
-    });
-    const onSubmit = handleSubmit((data) => {
-        mutation.mutate(data);
-    });
+    const {
+        register,
+        control,
+        errors,
+        modalConf,
+        onSubmit,
+        handleStayOnPage,
+        handleShowMyCase,
+        mutation
+    } = useCaseAdd();
 
     return (
         <main >
@@ -59,6 +51,12 @@ export default function CaseAddPage() {
                     })} label="Description" error={errors?.description} />
                 </div>
             </Form>
+            <Modal modalConf={modalConf} title="Add more?" footer={<>
+                <Button onClick={handleStayOnPage}>Yes</Button>
+                <Button onClick={handleShowMyCase} primary={false}>No, show me my Case</Button>
+            </>} isOpen={true} hasCloseBtn={false}>
+                Case successfully created! Do you want to add another one?
+            </Modal>
         </main>
     );
 }

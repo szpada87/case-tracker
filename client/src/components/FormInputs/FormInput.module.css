@@ -8,11 +8,11 @@
     }
 
     .field_label {
-        @apply block text-gray-800 dark:text-white text-sm font-semibold mb-2;
+        @apply block text-ct_text-800 dark:text-white text-sm font-semibold mb-2;
     }
 
     .field {
-        @apply block shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring;
+        @apply block shadow border rounded w-full py-2 px-3 text-ct_text-700 leading-tight focus:outline-none focus:ring;
     }
 
     .field.invalid {

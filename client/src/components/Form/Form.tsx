@@ -1,6 +1,7 @@
 import { ReactNode } from "react"
 import Alert from "../Alert/Alert"
 import classes from "./Form.module.css"
+import { Button } from "../Button/Button"
 
 type FormProps = {
     children: ReactNode,
@@ -18,7 +19,7 @@ export const Form = ({ children, loading, error, onSubmit }: FormProps) => {
                 {children}
             </div>
             <div className={classes.footer}>
-                <button className={classes.submit} disabled={loading} >Submit</button>
+                <Button disabled={loading} >Submit</Button>
             </div>
         </form >
     )

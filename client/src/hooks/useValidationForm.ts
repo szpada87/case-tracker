@@ -7,7 +7,7 @@ export type ValidationErrorInfo<T> = {
 }
 
 export default <T extends Record<string, any>>() => {
-    const { register, handleSubmit, control, formState: { errors }, setError } = useForm<T>();
+    const { register, handleSubmit, control, formState: { errors }, setError, reset } = useForm<T>();
 
     const setApiValidationErrors = (errors: ValidationErrorInfo<T>) => {
         let property: keyof typeof errors.errors;
@@ -16,6 +16,6 @@ export default <T extends Record<string, any>>() => {
         }
     }
 
-    return { register, handleSubmit, control, errors, setApiValidationErrors }
+    return { register, handleSubmit, control, errors, setApiValidationErrors, reset }
 
 }

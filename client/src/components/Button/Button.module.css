@@ -1,0 +1,16 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        @apply font-bold py-2 px-4 rounded focus:outline-none focus:ring transition-all duration-200 ease-linear shadow-lg
+        bg-ct_btn_bg-400 dark:bg-ct_btn_bg-600 dark:hover:bg-ct_btn_bg-500 hover:bg-ct_btn_bg-300
+        text-ct_text-200 dark:text-ct_text-300 dark:hover:text-ct_text-50 hover:text-ct_text-500 disabled:text-ct_accent-700 ;
+    }
+
+    .primary {
+        @apply bg-ct_btn_bg-500 dark:bg-ct_btn_bg-700 dark:hover:bg-ct_accent-600 hover:bg-ct_accent-600
+        text-ct_accent-400 dark:text-ct_accent-500 dark:hover:text-ct_text-50 hover:text-ct_text-50 disabled:text-ct_accent-700 
+    }
+}
