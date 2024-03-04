@@ -16,20 +16,14 @@ export const useAuthenticatedMutation = <TRequest, TResponse>(
     const queryClient = useQueryClient()
     const mutation = useMutation({
         mutationFn: async (request: TRequest) => {
-            try {
-                const token = await getAccessTokenAsync();
-                return await mutationFn(request, {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                        Accept: 'application/json, text/plain',
-                        'Content-Type': 'application/json;charset=UTF-8'
-                    }
-                });
-            } catch (error: unknown) {
-                if (!(options?.onError && options.onError(error as Error))) {
-                    throw error;
+            const token = await getAccessTokenAsync();
+            return await mutationFn(request, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    Accept: 'application/json, text/plain',
+                    'Content-Type': 'application/json;charset=UTF-8'
                 }
-            }
+            });
         },
         onSuccess: async (data) => {
             await queryClient.invalidateQueries({ queryKey: [...keys] });
@@ -38,6 +32,9 @@ export const useAuthenticatedMutation = <TRequest, TResponse>(
                 await queryClient.resetQueries(keys);
             }
             options?.onSuccess && options.onSuccess(data?.data);
+        },
+        onError: (error) => {
+            options?.onError && options.onError(error as Error);
         }
     });
 

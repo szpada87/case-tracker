@@ -17,13 +17,17 @@ public static class CaseRoutesExtensions
         {
             var caseDetails = await mediator.Send(new GetCaseDetailsById(id));
             return caseDetails is not null ? Results.Ok(caseDetails) : Results.NotFound();
-        }).WithName("CaseDetailsById").RequireAuthorization("cases:read");
+        }).WithName("CaseDetailsById")
+        .Produces<CaseDetailsResponse>((int)HttpStatusCode.OK)
+        .RequireAuthorization("cases:read");
 
         app.MapGet("/api/data", async (IMediator mediator) =>
         {
             var cases = await mediator.Send(new GetAllCases());
             return cases is not null ? Results.Ok(cases) : Results.NotFound();
-        }).WithName("AllCases").RequireAuthorization("cases:read");
+        }).WithName("AllCases")
+        .Produces<IEnumerable<CaseDetailsResponse>>((int)HttpStatusCode.OK)
+        .RequireAuthorization("cases:read");
 
         app.MapPost("/api/data", async (IValidator<CreateCaseRequest> validator, IMediator mediator, CreateCaseRequest request, ClaimsPrincipal user) =>
         {
@@ -33,7 +37,8 @@ public static class CaseRoutesExtensions
             string userId = user.Identity?.Name;
             var newCase = await mediator.Send(new CreateCaseCommand(request, userId));
             return Results.CreatedAtRoute("CaseDetailsById", new { id = newCase.Id }, newCase);
-        }).WithName("CreateCase").WithOpenApi(operation => {
+        }).WithName("CreateCase").WithOpenApi(operation =>
+        {
             operation.Description = "Creates new case.";
             return operation;
         }).Produces<CaseDetailsResponse>((int)HttpStatusCode.Created)

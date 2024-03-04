@@ -7,6 +7,7 @@ using Search.Models;
 using Search.Requests.Queries;
 using AutoMapper;
 using FluentValidation;
+using System.Net;
 
 namespace Search.Routes;
 
@@ -15,7 +16,7 @@ public static class CaseRoutesExtensions
     public static void RegisterCaseRoutes(this WebApplication app)
     {
         // TODO: Cansellation token!
-        app.MapGet("/api/search/", async (IMediator mediator, IMapper mapper, IValidator<GetAllCasesRequest> validator, CancellationToken  cancellationToken, [AsParameters] GetAllCasesRequest request) =>
+        app.MapGet("/api/search/", async (IMediator mediator, IMapper mapper, IValidator<GetAllCasesRequest> validator, CancellationToken cancellationToken, [AsParameters] GetAllCasesRequest request) =>
         {
             validator.ValidateAndThrow(request);
             if (request.SortBy is null)
@@ -24,6 +25,8 @@ public static class CaseRoutesExtensions
             }
             var result = await mediator.Send(mapper.Map<GetAllCases>(request), cancellationToken);
             return Results.Ok(result);
-        }).WithName("SearchCases").RequireAuthorization("cases:read");
+        }).WithName("SearchCases")
+        .Produces<PagedResponse<CaseResponse>>((int)HttpStatusCode.OK)
+        .RequireAuthorization("cases:read");
     }
 }

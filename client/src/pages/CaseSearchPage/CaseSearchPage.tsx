@@ -9,6 +9,7 @@ import Loader from '../../components/Loader/Loader';
 import useInfiniteScrolling from '../../hooks/useInfiniteScrolling';
 import classes from './CaseSearchPage.module.css';
 import { searchApi } from '../../utils/api';
+import { CaseResponse } from '../../shared/api/axios-client';
 
 function CaseSearchPage() {
     const [searchParams, setSearchParams] = useSearchParams({ q: "" })
@@ -17,7 +18,7 @@ function CaseSearchPage() {
     // https://react.dev/reference/react/useDeferredValue Extract fetching logic into a child component wrapped into suspense!
     const debouncedSearch = useDebounce(q);
 
-    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } = useInfiniteAuthenticatedQuery<CaseDetails>(async (page, options) => {
+    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } = useInfiniteAuthenticatedQuery<CaseResponse>(async (page, options) => {
         return await searchApi.searchCases({ currentPage: page, pageSize: 10, freeTextSearch: debouncedSearch }, options);
     }, ["cases", debouncedSearch]);
 

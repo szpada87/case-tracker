@@ -67,6 +67,74 @@ export interface CaseDetailsResponse {
 /**
  * 
  * @export
+ * @interface CaseResponse
+ */
+export interface CaseResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof CaseResponse
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseResponse
+     */
+    'description'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseResponse
+     */
+    'created'?: string;
+    /**
+     * 
+     * @type {CaseStatus}
+     * @memberof CaseResponse
+     */
+    'status'?: CaseStatus;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseResponse
+     */
+    'expire'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof CaseResponse
+     */
+    'ownerId'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface CaseResponsePagedResponse
+ */
+export interface CaseResponsePagedResponse {
+    /**
+     * 
+     * @type {Array<CaseResponse>}
+     * @memberof CaseResponsePagedResponse
+     */
+    'data'?: Array<CaseResponse> | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CaseResponsePagedResponse
+     */
+    'currentPage'?: number;
+    /**
+     * 
+     * @type {number}
+     * @memberof CaseResponsePagedResponse
+     */
+    'nextPage'?: number | null;
+}
+/**
+ * 
+ * @export
  * @enum {string}
  */
 
@@ -104,6 +172,51 @@ export interface CreateCaseRequest {
      * @memberof CreateCaseRequest
      */
     'expire'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface HttpValidationProblemDetails
+ */
+export interface HttpValidationProblemDetails {
+    [key: string]: any;
+
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpValidationProblemDetails
+     */
+    'type'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpValidationProblemDetails
+     */
+    'title'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof HttpValidationProblemDetails
+     */
+    'status'?: number | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpValidationProblemDetails
+     */
+    'detail'?: string | null;
+    /**
+     * 
+     * @type {string}
+     * @memberof HttpValidationProblemDetails
+     */
+    'instance'?: string | null;
+    /**
+     * 
+     * @type {{ [key: string]: Array<string>; }}
+     * @memberof HttpValidationProblemDetails
+     */
+    'errors'?: { [key: string]: Array<string>; } | null;
 }
 
 /**
@@ -183,7 +296,7 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
             };
         },
         /**
-         * test
+         * Creates new case.
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -269,7 +382,7 @@ export const DataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async allCases(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async allCases(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<CaseDetailsResponse>>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.allCases(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -279,12 +392,12 @@ export const DataApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async caseDetailsById(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async caseDetailsById(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CaseDetailsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.caseDetailsById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
-         * test
+         * Creates new case.
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -317,7 +430,7 @@ export const DataApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        allCases(options?: any): AxiosPromise<void> {
+        allCases(options?: any): AxiosPromise<Array<CaseDetailsResponse>> {
             return localVarFp.allCases(options).then((request) => request(axios, basePath));
         },
         /**
@@ -326,11 +439,11 @@ export const DataApiFactory = function (configuration?: Configuration, basePath?
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        caseDetailsById(id: number, options?: any): AxiosPromise<void> {
+        caseDetailsById(id: number, options?: any): AxiosPromise<CaseDetailsResponse> {
             return localVarFp.caseDetailsById(id, options).then((request) => request(axios, basePath));
         },
         /**
-         * test
+         * Creates new case.
          * @param {CreateCaseRequest} createCaseRequest 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -406,7 +519,7 @@ export class DataApi extends BaseAPI {
     }
 
     /**
-     * test
+     * Creates new case.
      * @param {DataApiCreateCaseRequest} requestParameters Request parameters.
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
@@ -522,7 +635,7 @@ export const SearchApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async searchCases(currentPage: number, pageSize: number, sourceFields?: string, freeTextSearch?: string, sortBy?: string, sortOrder?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<void>> {
+        async searchCases(currentPage: number, pageSize: number, sourceFields?: string, freeTextSearch?: string, sortBy?: string, sortOrder?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CaseResponsePagedResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.searchCases(currentPage, pageSize, sourceFields, freeTextSearch, sortBy, sortOrder, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
@@ -547,7 +660,7 @@ export const SearchApiFactory = function (configuration?: Configuration, basePat
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        searchCases(currentPage: number, pageSize: number, sourceFields?: string, freeTextSearch?: string, sortBy?: string, sortOrder?: string, options?: any): AxiosPromise<void> {
+        searchCases(currentPage: number, pageSize: number, sourceFields?: string, freeTextSearch?: string, sortBy?: string, sortOrder?: string, options?: any): AxiosPromise<CaseResponsePagedResponse> {
             return localVarFp.searchCases(currentPage, pageSize, sourceFields, freeTextSearch, sortBy, sortOrder, options).then((request) => request(axios, basePath));
         },
     };
