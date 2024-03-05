@@ -1,7 +1,7 @@
 import { ReactNode } from "react"
-import Alert from "../Alert/Alert"
+import Alert from "../../common/Alert/Alert"
 import classes from "./Form.module.css"
-import { Button } from "../Button/Button"
+import { Button } from "../../common/Button/Button"
 
 type FormProps = {
     children: ReactNode,

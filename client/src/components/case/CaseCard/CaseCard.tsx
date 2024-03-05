@@ -1,8 +1,8 @@
 import classes from "./CaseCard.module.css"
 import CaseStatus from "../CaseStatus/CaseStatus";
-import { Card } from "../Card/Card";
-import { Avatar } from "../Avatar/Avatar";
-import { CaseDetailsResponse } from "../../shared/api/axios-client";
+import { Card } from "../../common/Card/Card";
+import { Avatar } from "../../common/Avatar/Avatar";
+import { CaseDetailsResponse } from "../../../shared/api/axios-client";
 
 type CaseCardProps = {
     caseData: CaseDetailsResponse

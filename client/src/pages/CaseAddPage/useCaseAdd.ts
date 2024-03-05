@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useModal } from "../../components/Modal/useModal";
+import { useModal } from "../../components/common/Modal/useModal";
 import { useAuthenticatedMutation } from "../../hooks/useAuthenticatedMutation";
 import useValidationForm, { ValidationErrorInfo } from "../../hooks/useValidationForm";
 import { CaseDetailsResponse, CreateCaseRequest } from "../../shared/api/axios-client";

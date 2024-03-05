@@ -1,7 +1,7 @@
 import { useRouteError } from "react-router-dom";
 import { FaBug } from 'react-icons/fa';
 import classes from "./Error.module.css";
-import { Card } from "../../components/Card/Card";
+import { Card } from "../../components/common/Card/Card";
 
 type ErrorType = {
   statusText?: string,

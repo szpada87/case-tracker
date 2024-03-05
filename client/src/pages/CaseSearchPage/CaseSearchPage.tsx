@@ -1,9 +1,9 @@
 import useDebounce from '../../hooks/useDebounce';
 import { useSearchParams } from 'react-router-dom';
-import { CaseInfiniteList } from '../../components/CaseList/CaseInfiniteList';
+import { CaseInfiniteList } from '../../components/case/CaseList/CaseInfiniteList';
 import { Suspense, useDeferredValue, useState } from 'react';
-import Loader from '../../components/Loader/Loader';
-import { SearchInput } from '../../components/SearchInput/SearchInput';
+import Loader from '../../components/common/Loader/Loader';
+import { SearchInput } from '../../components/forms/SearchInput/SearchInput';
 
 function CaseSearchPage() {
     const [searchParams, setSearchParams] = useSearchParams({ q: "" })

@@ -1,4 +1,4 @@
-import Loader from "../Loader/Loader";
+import Loader from "../../common/Loader/Loader";
 import classes from "./SearchInput.module.css";
 
 type SearchInputProps = {

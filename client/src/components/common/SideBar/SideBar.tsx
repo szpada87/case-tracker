@@ -2,8 +2,8 @@ import { FaDoorOpen, FaList } from 'react-icons/fa';
 import SideBarIcon from '../SideBarIcon/SideBarIcon';
 import classes from './SideBar.module.css'
 import { BsPlus, BsHouse, BsLock } from 'react-icons/bs';
-import useAuthentication from '../../hooks/useAuthentication';
-import useAuthorization from '../../hooks/useAuthorization';
+import useAuthentication from '../../../hooks/useAuthentication';
+import useAuthorization from '../../../hooks/useAuthorization';
 import { Link } from 'react-router-dom';
 
 const SideBar = () => {

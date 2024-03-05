@@ -1,4 +1,4 @@
-import { Status } from "../../models/CaseTypes";
+import { Status } from "../../../models/CaseTypes";
 import classes from "./CaseStatus.module.css";
 
 const statusMap: string[] = [

@@ -7,11 +7,11 @@ import {
 } from "react-router-dom";
 import ErrorPage from './pages/Error/ErrorPage';
 import './index.css'
-import RequiredAuth from './utils/RequiredAuth';
-import { Layout, DashboardLayout } from './components/Layout/Layout';
+import RequiredAuth from './components/auth/RequiredAuth';
+import { Layout, DashboardLayout } from './components/common/Layout/Layout';
 import CaseAddPage from './pages/CaseAddPage/CaseAddPage';
-import Authorize from './utils/Authorize';
-import Loader from './components/Loader/Loader';
+import Authorize from './components/auth/Authorize';
+import Loader from './components/common/Loader/Loader';
 import CaseSearchPage from './pages/CaseSearchPage/CaseSearchPage';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import CaseDetailsPage from './pages/CaseDetailsPage/CaseDetailsPage';

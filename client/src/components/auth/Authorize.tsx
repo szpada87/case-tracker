@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
-import useAuthorization, { RolesType } from '../hooks/useAuthorization';
-import UnathorizedErrorPage from '../pages/Error/UnathorizedErrorPage';
+import useAuthorization, { RolesType } from '../../hooks/useAuthorization';
+import UnathorizedErrorPage from '../../pages/Error/UnathorizedErrorPage';
 
 type AuthorizeProps = {
     children: ReactNode,

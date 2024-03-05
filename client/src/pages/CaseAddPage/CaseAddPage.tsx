@@ -1,11 +1,11 @@
-import { FormSelect, FormTextArea } from '../../components/FormInputs/FormInputs';
+import { FormSelect, FormTextArea } from '../../components/forms/FormInputs/FormInputs';
 import { Status } from '../../models/CaseTypes';
-import { Form } from '../../components/Form/Form';
+import { Form } from '../../components/forms/Form/Form';
 import { Controller } from 'react-hook-form';
-import Datepicker from '../../components/Datepicker/Datepicker';
+import Datepicker from '../../components/forms/Datepicker/Datepicker';
 import getEnumKeys from '../../utils/getEnumKeys';
-import Modal from '../../components/Modal/Modal';
-import { Button } from '../../components/Button/Button';
+import Modal from '../../components/common/Modal/Modal';
+import { Button } from '../../components/common/Button/Button';
 import useCaseAdd from './useCaseAdd';
 
 

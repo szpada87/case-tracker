@@ -1,6 +1,6 @@
 import { useParams } from 'react-router-dom';
 import { useAuthenticatedQuery } from '../../hooks/useAuthenticatedQuery';
-import CaseCard from '../../components/CaseCard/CaseCard';
+import CaseCard from '../../components/case/CaseCard/CaseCard';
 import { dataApi } from '../../utils/api';
 import { CaseDetailsResponse } from '../../shared/api/axios-client';
 

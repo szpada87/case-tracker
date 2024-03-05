@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react';
 import { useAuth0 } from "@auth0/auth0-react";
-import Loader from '../components/Loader/Loader';
+import Loader from '../common/Loader/Loader';
 
 type RequiredAuthProps = {
   children: ReactNode

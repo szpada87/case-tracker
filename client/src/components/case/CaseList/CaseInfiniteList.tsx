@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom"
 import CaseCard from "../CaseCard/CaseCard"
-import { useInfiniteAuthenticatedQuery } from "../../hooks/useInfiniteAuthenticatedQuery";
-import { CaseResponse } from "../../shared/api/axios-client";
-import { searchApi } from "../../utils/api";
+import { useInfiniteAuthenticatedQuery } from "../../../hooks/useInfiniteAuthenticatedQuery";
+import { CaseResponse } from "../../../shared/api/axios-client";
+import { searchApi } from "../../../utils/api";
 import classes from "./CaseInfiniteList.module.css";
-import Loader from "../Loader/Loader";
-import useInfiniteScrolling from "../../hooks/useInfiniteScrolling";
+import Loader from "../../common/Loader/Loader";
+import useInfiniteScrolling from "../../../hooks/useInfiniteScrolling";
 import { useCallback } from "react";
 
 type CaseInfiniteListProps = {
