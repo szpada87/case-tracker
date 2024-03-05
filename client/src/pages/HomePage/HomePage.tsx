@@ -1,11 +1,6 @@
 // TODO: add styling
-
-import useDarkMode from "../../hooks/useDarkMode"
-
 // TODO: create content with prose
 function HomePage() {
-    // TODO: remove this when implementing a different header for this page
-    useDarkMode();
     return (
         <main className='w-full' >
             <section className="bg-white dark:bg-gray-900">

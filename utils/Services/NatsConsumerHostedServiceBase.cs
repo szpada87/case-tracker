@@ -50,7 +50,6 @@ public abstract class NatsConsumerHostedServiceBase : IHostedService
                 }
                 catch (Exception e)
                 {
-                    // TODO: log errors and reject event!
                     _logger.LogError(e, "Error caught during event handling for {subject}", subject);
                 }
             });

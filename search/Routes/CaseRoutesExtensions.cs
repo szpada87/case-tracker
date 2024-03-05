@@ -15,7 +15,6 @@ public static class CaseRoutesExtensions
 {
     public static void RegisterCaseRoutes(this WebApplication app)
     {
-        // TODO: Cansellation token!
         app.MapGet("/api/search/", async (IMediator mediator, IMapper mapper, IValidator<GetAllCasesRequest> validator, CancellationToken cancellationToken, [AsParameters] GetAllCasesRequest request) =>
         {
             validator.ValidateAndThrow(request);

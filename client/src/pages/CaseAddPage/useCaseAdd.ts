@@ -11,7 +11,6 @@ export default function() {
     const { register, handleSubmit, control, errors, setApiValidationErrors, reset } = useValidationForm<CreateCaseRequest>();
     // TODO: BUG: calendar control does not reset properly
     const { modalConf, showModal, closeModal } = useModal(onclose = () => reset());
-    // TODO: issue with return type - issue with open api swagger doc
     const mutation = useAuthenticatedMutation<CreateCaseRequest, CaseDetailsResponse>(async (request, options) => {
         return await dataApi.createCase({ createCaseRequest: request }, options);
     }, ["cases"], {

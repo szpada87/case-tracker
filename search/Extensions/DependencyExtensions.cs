@@ -19,7 +19,6 @@ public static class DependencyExtensions
 
     public static void RegisterElasticSearch(this WebApplicationBuilder builder)
     {
-        // TODO: Handle missing variable
         var ES_HOST = Environment.GetEnvironmentVariable("ES_HOST") ?? "";
         builder.Services.AddSingleton<IElasticClient>(provider =>
         {
