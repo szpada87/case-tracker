@@ -4,12 +4,3 @@ export enum Status {
     Cancelled,
     Overdue
 }
-
-export type CaseDetails = {
-    id: number,
-    ownerId: string,
-    created: string,
-    description: string,
-    status: Status,
-    expire: Date
-}
