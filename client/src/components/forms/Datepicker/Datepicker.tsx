@@ -37,7 +37,7 @@ const DEFAULT_CONFIGURATION: Readonly<IOptions> = {
 type DatepickerProps = {
     onChange: (...event: any[]) => void,
     onBlur: (...event: any[]) => void,
-    options: IOptions,
+    options: IOptions
 }
 
 const DatepickerInput = (({ onChange, onBlur, options }: DatepickerProps) => {

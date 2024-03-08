@@ -1,4 +1,5 @@
 import { useAuth0 } from "@auth0/auth0-react";
+import { useCallback } from "react";
 
 export default () => {
     const {
@@ -10,7 +11,7 @@ export default () => {
         getAccessTokenWithPopup
     } = useAuth0();
 
-    const getAccessTokenAsync = async () => {
+    const getAccessTokenAsync = useCallback(async () => {
         try {
             if (isAuthenticated && !isLoading) {
                 return await getAccessTokenSilently()
@@ -21,17 +22,17 @@ export default () => {
             console.error(e);
             throw e;
         }
-    }
+    }, [isAuthenticated, isLoading, getAccessTokenSilently, getAccessTokenWithPopup])
 
-    const authenticateUser = () => {
+    const authenticateUser = useCallback(() => {
         if (!isAuthenticated && !isLoading) {
             loginWithPopup();
         }
-    }
+    }, [isAuthenticated, isLoading, loginWithPopup])
 
-    const logoutUser = () => {
+    const logoutUser = useCallback(() => {
         logout({ logoutParams: { returnTo: window.location.origin } });
-    }
+    }, [logout])
 
     return { authenticateUser, logoutUser, getAccessTokenAsync, isAuthenticated };
 }

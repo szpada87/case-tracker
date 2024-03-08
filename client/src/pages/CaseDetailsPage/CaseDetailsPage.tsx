@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useAuthenticatedQuery } from '../../hooks/useAuthenticatedQuery';
 import CaseCard from '../../components/case/CaseCard/CaseCard';
-import { dataApi } from '../../utils/api';
 import { CaseDetailsResponse } from '../../shared/api/axios-client';
+import { useQuery } from 'react-query';
+import { useApi } from '../../hooks/useApi';
 
 type CaseDetailsRequest = {
     id: string
@@ -10,9 +10,14 @@ type CaseDetailsRequest = {
 
 function CaseDetailsPage() {
     const { id } = useParams<CaseDetailsRequest>();
-    const { data } = useAuthenticatedQuery<CaseDetailsResponse>(["cases", id], async (options) => {
-        return dataApi.caseDetailsById({ id: parseInt(id!) }, options);
-    });
+    const { dataApi } = useApi();
+    const { data } = useQuery<CaseDetailsResponse>({
+        queryKey: ["cases", id],
+        queryFn: async ({ signal }) => (await dataApi.caseDetailsById({
+            id: parseInt(id || "")
+        }, { signal })).data,
+        suspense: true
+    })
 
     return (
         <main className='w-full mt-1 p-4' >

@@ -37,8 +37,8 @@ export default function CaseAddPage() {
                         </FormSelect>
                     </div>
                     <div className='w-full md:w-1/2 px-3'>
-                        <Controller name="expire" control={control} render={({ field: { onChange, onBlur } }) => (
-                            <Datepicker onChange={onChange} onBlur={onBlur} options={{ inputNameProp: "expire", inputIdProp: "expire" }} label='Expires' error={errors?.expire} name='expire' />
+                        <Controller name="expire" control={control} render={({ field: { onChange, onBlur, name } }) => (
+                            <Datepicker onChange={onChange} onBlur={onBlur} options={{ inputNameProp: "expire", inputIdProp: "expire" }} label='Expires' error={errors?.expire} name={name} />
                         )} />
                     </div>
                 </div>

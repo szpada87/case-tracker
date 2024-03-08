@@ -18,5 +18,5 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-gray-500 dark:bg-green-400;
+  @apply bg-ct_bg-500 dark:bg-ct_accent-400;
 }

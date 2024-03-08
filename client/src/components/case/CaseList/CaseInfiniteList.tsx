@@ -1,12 +1,11 @@
-import { Link } from "react-router-dom"
-import CaseCard from "../CaseCard/CaseCard"
-import { useInfiniteAuthenticatedQuery } from "../../../hooks/useInfiniteAuthenticatedQuery";
-import { CaseResponse } from "../../../shared/api/axios-client";
-import { searchApi } from "../../../utils/api";
+import { Link } from "react-router-dom";
+import CaseCard from "../CaseCard/CaseCard";
 import classes from "./CaseInfiniteList.module.css";
 import Loader from "../../common/Loader/Loader";
 import useInfiniteScrolling from "../../../hooks/useInfiniteScrolling";
 import { useCallback } from "react";
+import { useApi } from "../../../hooks/useApi";
+import { useInfiniteQuery } from "react-query";
 
 type CaseInfiniteListProps = {
     query: string,
@@ -14,9 +13,19 @@ type CaseInfiniteListProps = {
 }
 
 export const CaseInfiniteList = ({ query, onSettled }: CaseInfiniteListProps) => {
-    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } = useInfiniteAuthenticatedQuery<CaseResponse>(async (page, options) => {
-        return await searchApi.searchCases({ currentPage: page, pageSize: 10, freeTextSearch: query }, options);
-    }, ["cases", query], { onSettled: onSettled });
+    const { searchApi } = useApi();
+    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } =
+        useInfiniteQuery({
+            queryFn: async ({ pageParam = 1, signal }) => (await searchApi.searchCases({
+                currentPage: pageParam,
+                pageSize: 10,
+                freeTextSearch: query
+            }, { signal })).data,
+            getNextPageParam: (lastPage) => lastPage.nextPage || undefined,
+            queryKey: ["cases", query],
+            onSettled: onSettled,
+            suspense: true
+        });
 
     const onScroll = useCallback(() => {
         fetchNextPage();
@@ -24,7 +33,7 @@ export const CaseInfiniteList = ({ query, onSettled }: CaseInfiniteListProps) =>
     const observerTarget = useInfiniteScrolling(onScroll)
     return <>
         <main className='w-full' >
-            {cases?.pages.map(page => page.data.map((result) =>
+            {cases?.pages.map(page => page.data?.map((result) =>
                 <Link key={result.id} className={classes.card_hover} to={`/dashboard/cases/${result.id}`}>
                     <CaseCard
                         caseData={result} />
