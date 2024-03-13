@@ -5,7 +5,7 @@ deploy:
     manifests:
       - ./infra/k8s/data-depl.yaml
       - ./infra/k8s/search-depl.yaml
-      - ./infra/k8s/client-depl.yaml
+      - ./infra/k8s-prod/client-depl.yaml
 build:
   local:
     push: false
@@ -15,15 +15,7 @@ build:
     - image: szpada87/case-client
       context: client
       docker:
-        dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.tsx'
-            dest: .
-          - src: '**/*.ts'
-            dest: .
-          - src: '**/*.css'
-            dest: .
+        dockerfile: Dockerfile.prod
     - image: szpada87/case-search
       context: search
       requires:
@@ -31,10 +23,6 @@ build:
           alias: BASE
       docker:
         dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.cs'
-            dest: .
     - image: szpada87/case-data
       context: data
       requires:
@@ -42,7 +30,3 @@ build:
           alias: BASE
       docker:
         dockerfile: Dockerfile
-      sync:
-        manual:
-          - src: '**/*.cs'
-            dest: .

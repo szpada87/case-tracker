@@ -14,7 +14,7 @@ type CaseInfiniteListProps = {
 
 export const CaseInfiniteList = ({ query, onSettled }: CaseInfiniteListProps) => {
     const { searchApi } = useApi();
-    const { data: cases, error, status, fetchNextPage, isFetchingNextPage } =
+    const { data: cases, status, fetchNextPage, isFetchingNextPage } =
         useInfiniteQuery({
             queryFn: async ({ pageParam = 1, signal }) => (await searchApi.searchCases({
                 currentPage: pageParam,
