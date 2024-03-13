@@ -31,6 +31,11 @@ spec:
                 secretKeyRef:
                   name: auth-client-id
                   key: AUTH_CLIENT_ID
+            - name: VITE_BASE_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: base-path
+                  key: BASE_PATH
 ---
 apiVersion: v1
 kind: Service

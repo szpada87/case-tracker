@@ -5,6 +5,9 @@ import useAuthentication from "./useAuthentication";
 
 const BASE_PATH = import.meta.env.VITE_BASE_PATH || window.injectedEnv.VITE_BASE_PATH;
 
+console.log(window.injectedEnv);
+
+
 export const useApi = () => {
     const { getAccessTokenAsync } = useAuthentication();
     const { dataApi, searchApi } = useMemo(() => {
