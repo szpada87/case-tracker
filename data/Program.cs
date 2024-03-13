@@ -4,6 +4,7 @@ using Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddCors();
 builder.AddAuthentication();
 builder.AddAuthorization(new List<string>() {"cases:read", "cases:add", "cases:delete"});
 builder.RegisterServiceBus();
@@ -16,6 +17,7 @@ var app = builder.Build();
 app.EnsureDatabaseIsCreated();
 app.UseSwagger("data");
 app.UseLogging();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseErrorHandling();
