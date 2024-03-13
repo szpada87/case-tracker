@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: data
-          image: registry.digitalocean.com/szpada87/case-data
+          image: registry.digitalocean.com/szpada87/case-tracker:data
           env:
             - name: NATS_CLIENT_ID
               valueFrom:

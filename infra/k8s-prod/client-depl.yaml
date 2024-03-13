@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: registry.digitalocean.com/szpada87/case-client:latest
-          imagePullPolicy: "Always"
+          image: registry.digitalocean.com/szpada87/case-tracker:client
           env:
             - name: VITE_AUTH_DOMAIN
               valueFrom:

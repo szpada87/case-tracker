@@ -16,8 +16,8 @@ jobs:
         with:
           token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
       - run: doctl registry login
-      - run: cd client && docker build -f Dockerfile.prod -t szpada87/case-client:latest .
-      - run: docker tag szpada87/case-client registry.digitalocean.com/szpada87/case-client
-      - run: docker push registry.digitalocean.com/szpada87/case-client
+      - run: cd client && docker build -f Dockerfile.prod -t szpada87/case-tracker:client .
+      - run: docker tag szpada87/case-tracker:client registry.digitalocean.com/szpada87/case-tracker:client
+      - run: docker push registry.digitalocean.com/szpada87/case-tracker:client
       - run: doctl kubernetes cluster kubeconfig save szpada87
       - run: kubectl rollout restart deployment client-depl
