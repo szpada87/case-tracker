@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-es-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search-es
+  template:
+    metadata:
+      labels:
+        app: search-es
+    spec:
+      containers:
+        - name: search-es
+          image: elasticsearch:7.17.5
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          env:
+            - name: discovery.type
+              value: single-node
+            - name: xpack.security.enabled
+              value: "false"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-es-srv
+spec:
+  selector:
+    app: search-es
+  ports:
+    - name: client
+      protocol: TCP
+      port: 9200
+      targetPort: 9200

@@ -3,8 +3,8 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/data-depl.yaml
-      - ./infra/k8s/search-depl.yaml
+      - ./infra/k8s-prod/data-depl.yaml
+      - ./infra/k8s-prod/search-depl.yaml
       - ./infra/k8s-prod/client-depl.yaml
 build:
   local:
