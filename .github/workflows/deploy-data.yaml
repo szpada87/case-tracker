@@ -13,6 +13,7 @@ jobs:
     uses: ./.github/workflows/deploy-utils.yaml
     secrets: inherit
   build:
+    needs: build-utils
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
