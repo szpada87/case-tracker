@@ -11,6 +11,7 @@ on:
 jobs:
   build-utils:
     uses: ./.github/workflows/deploy-utils.yaml
+    secrets: inherit
   build:
     runs-on: ubuntu-latest
     steps:

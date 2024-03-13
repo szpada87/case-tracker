@@ -3,7 +3,6 @@ using Data.Routes;
 using Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
-// Test
 
 builder.AddAuthentication();
 builder.AddAuthorization(new List<string>() {"cases:read", "cases:add", "cases:delete"});
