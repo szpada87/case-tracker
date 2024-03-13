@@ -1,5 +1,11 @@
 name: deploy-utils
 
+on:
+  workflow_call:
+    secrets:
+        DIGITALOCEAN_ACCESS_TOKEN:
+          required: true
+
 jobs:
   build:
     runs-on: ubuntu-latest
