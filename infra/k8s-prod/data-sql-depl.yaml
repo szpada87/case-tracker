@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-sql-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data-sql
+  template:
+    metadata:
+      labels:
+        app: data-sql
+    spec:
+      terminationGracePeriodSeconds: 30
+      hostname: mssqlinst
+      containers:
+        - name: data-sql
+          image: mcr.microsoft.com/mssql/server:2022-latest
+          ports:
+            - containerPort: 1433
+          env:
+            - name: MSSQL_PID
+              value: "Developer"
+            - name: ACCEPT_EULA
+              value: "Y"
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql
+                  key: MSSQL_SA_PASSWORD
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-sql-srv
+spec:
+  selector:
+    app: data-sql
+  ports:
+    - name: db
+      protocol: TCP
+      port: 1433
+      targetPort: 1433

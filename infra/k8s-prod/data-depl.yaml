@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: data-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: data
+  template:
+    metadata:
+      labels:
+        app: data
+    spec:
+      containers:
+        - name: data
+          image: registry.digitalocean.com/szpada87/case-data
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: case-tracker
+            - name: MSSQL_SA_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mssql
+                  key: MSSQL_SA_PASSWORD
+            - name: SQL_CONNECTION
+              value: 'Server=data-sql-srv,1433;Initial Catalog=Data;User Id=sa; Password=$(MSSQL_SA_PASSWORD);TrustServerCertificate=False;Encrypt=False;'
+            - name: AUTH_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: auth-domain
+                  key: AUTH_DOMAIN
+            - name: AUTH_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: auth-audience
+                  key: AUTH_AUDIENCE
+            - name: AUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: auth-client-id
+                  key: AUTH_CLIENT_ID
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: data-srv
+spec:
+  selector:
+    app: data
+  ports:
+    - name: data
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

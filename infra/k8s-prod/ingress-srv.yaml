@@ -15,6 +15,13 @@ spec:
     - host: szpada87.blog
       http:
         paths:
+          - path: /api/data/?(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: data-srv
+                port:
+                  number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:

@@ -1,0 +1,14 @@
+name: deploy-utils
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
+      - run: doctl registry login
+      - run: cd utils && docker build -f Dockerfile -t szpada87/utils:latest .
+      - run: docker tag szpada87/utils registry.digitalocean.com/szpada87/utils
+      - run: docker push registry.digitalocean.com/szpada87/utils
