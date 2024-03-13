@@ -4,7 +4,7 @@ WORKDIR /App
 # Copy everything
 COPY . ./data
 
-FROM registry.digitalocean.com/szpada87/case-tracker:utils
+FROM registry.digitalocean.com/szpada87/case-tracker:utils AS build
 COPY --from=build-env /App/data ./data
 
 WORKDIR /App/data
@@ -16,10 +16,9 @@ RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
 # Run watch
 RUN dotnet publish -c Release -o out
 
-
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:7.0
 WORKDIR /App
-COPY --from=build-env /App/out .
+COPY --from=build /App/data/out .
 EXPOSE 3000
 ENTRYPOINT ["dotnet", "Data.dll"]
