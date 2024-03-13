@@ -4,6 +4,8 @@ using Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+// test
+
 builder.AddAuthentication();
 builder.AddAuthorization(new List<string>() {"cases:read", "cases:add", "cases:delete"});
 builder.RegisterServiceBus();
