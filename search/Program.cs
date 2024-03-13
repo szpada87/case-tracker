@@ -4,6 +4,7 @@ using Utils.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddCors();
 builder.AddAuthentication();
 builder.AddAuthorization(new List<string>() { "cases:read" });
 builder.RegisterServiceBus();
@@ -17,6 +18,7 @@ builder.AddLogging();
 var app = builder.Build();
 app.UseSwagger("search");
 app.UseLogging();
+app.UseCors();
 app.UseAuthentication();
 app.UseAuthorization();
 app.UseErrorHandling();

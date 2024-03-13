@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: search-depl
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: search
+  template:
+    metadata:
+      labels:
+        app: search
+    spec:
+      containers:
+        - name: search
+          image: registry.digitalocean.com/szpada87/case-tracker:search
+          imagePullPolicy: "Always"
+          env:
+            - name: NATS_CLIENT_ID
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: NATS_URL
+              value: 'http://nats-srv:4222'
+            - name: NATS_CLUSTER_ID
+              value: case-tracker
+            - name: ES_HOST
+              value: 'http://search-es-srv:9200'
+            - name: AUTH_DOMAIN
+              valueFrom:
+                secretKeyRef:
+                  name: auth-domain
+                  key: AUTH_DOMAIN
+            - name: AUTH_AUDIENCE
+              valueFrom:
+                secretKeyRef:
+                  name: auth-audience
+                  key: AUTH_AUDIENCE
+            - name: AUTH_CLIENT_ID
+              valueFrom:
+                secretKeyRef:
+                  name: auth-client-id
+                  key: AUTH_CLIENT_ID
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: search-srv
+spec:
+  selector:
+    app: search
+  ports:
+    - name: search
+      protocol: TCP
+      port: 3000
+      targetPort: 3000

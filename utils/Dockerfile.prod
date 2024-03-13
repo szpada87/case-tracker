@@ -1,0 +1,24 @@
+FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build-env
+WORKDIR /App
+
+# Copy everything
+COPY . ./search
+
+FROM registry.digitalocean.com/szpada87/case-tracker:utils AS build
+COPY --from=build-env /App/search ./search
+
+WORKDIR /App/search
+# RUN curl -o /usr/local/share/ca-certificates/verisign.crt -SsL https://crt.sh/?d=1039083 && update-ca-certificates
+RUN update-ca-certificates
+# Restore as distinct layers
+RUN dotnet restore
+RUN sed -i 's/DEFAULT@SECLEVEL=2/DEFAULT@SECLEVEL=1/g' /etc/ssl/openssl.cnf
+# Run watch
+RUN dotnet publish -c Release -o out
+
+# Build runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:7.0
+WORKDIR /App
+COPY --from=build /App/search/out .
+EXPOSE 3000
+ENTRYPOINT ["dotnet", "search.dll"]

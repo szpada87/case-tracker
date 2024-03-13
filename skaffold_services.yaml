@@ -3,9 +3,9 @@ kind: Config
 deploy:
   kubectl:
     manifests:
-      - ./infra/k8s/data-depl.yaml
-      - ./infra/k8s/search-depl.yaml
-      - ./infra/k8s/client-depl.yaml
+      - ./infra/k8s-dev/data-depl.yaml
+      - ./infra/k8s-dev/search-depl.yaml
+      - ./infra/k8s-dev/client-depl.yaml
 build:
   local:
     push: false
