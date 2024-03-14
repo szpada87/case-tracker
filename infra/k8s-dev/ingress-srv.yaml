@@ -24,13 +24,6 @@ spec:
                 name: search-srv
                 port:
                   number: 3000
-          # - path: /api/audit/?(.*)
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: audit-srv
-          #       port:
-          #         number: 3000
           - path: /?(.*)
             pathType: Prefix
             backend:
