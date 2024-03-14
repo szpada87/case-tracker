@@ -13,7 +13,13 @@ export const useApi = () => {
         }), BASE_PATH)
 
         const searchApi = new SearchApi(new Configuration({
-            accessToken: async () => await getAccessTokenAsync() || ""
+            accessToken: async () => await getAccessTokenAsync() || "",
+            baseOptions: {
+                Headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                }
+            }
         }), BASE_PATH);
 
         return { dataApi, searchApi };
