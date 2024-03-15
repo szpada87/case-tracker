@@ -33,7 +33,7 @@ export const CaseInfiniteList = ({ query, onSettled }: CaseInfiniteListProps) =>
     const observerTarget = useInfiniteScrolling(onScroll)
     return <>
         <main className='w-full' >
-            {cases?.pages.map(page => page.data?.map((result) =>
+            {cases?.pages?.map(page => page.data?.map((result) =>
                 <Link key={result.id} className={classes.card_hover} to={`/dashboard/cases/${result.id}`}>
                     <CaseCard
                         caseData={result} />
