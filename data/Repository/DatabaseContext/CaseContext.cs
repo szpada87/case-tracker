@@ -13,4 +13,16 @@ public class CaseDb : DbContext
     }
 
     public DbSet<Case> CaseEntries { get; set; } = null!;
+
+    public DbSet<Debtor> DebtorEntries { get; set; } = null!;
+
+    protected override void OnModelCreating(ModelBuilder builder)
+    {
+        builder.Entity<Case>(e =>
+        {
+            e.HasOne(p => p.Debtor)
+            .WithMany(d => d.Cases)
+            .HasForeignKey(p => p.DebtorId);
+        });
+    }
 }

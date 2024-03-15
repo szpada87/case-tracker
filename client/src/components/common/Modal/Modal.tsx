@@ -5,7 +5,6 @@ import { FaPlusCircle } from 'react-icons/fa';
 
 type ModalProps = {
     modalConf: ModalConf,
-    isOpen: boolean,
     hasCloseBtn?: boolean,
     onClose?: () => void,
     title?: string,

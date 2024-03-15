@@ -11,4 +11,6 @@ public record CreateCaseRequest
 
     [JsonConverter(typeof(NullableDateTimeConverter))]
     public required DateTime? Expire { get; set; }
+
+    public required int DebtorId { get; set; }
 }

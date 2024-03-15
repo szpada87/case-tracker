@@ -13,4 +13,6 @@ public record CaseDetailsResponse
     public required DateTime Expire { get; set; }
 
     public required string OwnerId { get; set; }
+
+    public required DebtorDetailsResponse DebtorDetails { get; set; }
 }

@@ -15,12 +15,12 @@ public class CaseRepository : ICaseRepository
 
     public async Task<Case?> GetById(int id)
     {
-        return await _db.CaseEntries.FirstOrDefaultAsync(c => c.Id == id);
+        return await _db.CaseEntries.Include(s => s.Debtor).FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public async Task<IEnumerable<Case>?> Get()
     {
-        return await _db.CaseEntries.ToListAsync();
+        return await _db.CaseEntries.Include(s => s.Debtor).ToListAsync();
     }
 
     public async Task<Case> Create(Case details)

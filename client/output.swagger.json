@@ -30,7 +30,7 @@
         }
       }
     },
-    "/api/data/{id}": {
+    "/api/data/case/{id}": {
       "get": {
         "tags": [
           "data"
@@ -62,7 +62,7 @@
         }
       }
     },
-    "/api/data": {
+    "/api/data/case": {
       "get": {
         "tags": [
           "data"
@@ -107,6 +107,100 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/CaseDetailsResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Client error",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HttpValidationProblemDetails"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/data/debtor/{id}": {
+      "get": {
+        "tags": [
+          "data"
+        ],
+        "operationId": "DebtorDetailsById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "style": "simple",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebtorDetailsResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/data/debtor": {
+      "get": {
+        "tags": [
+          "data"
+        ],
+        "operationId": "AllDebtors",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/DebtorDetailsResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "data"
+        ],
+        "description": "Creates new debtor.",
+        "operationId": "CreateDebtor",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateDebtorRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DebtorDetailsResponse"
                 }
               }
             }
@@ -230,6 +324,9 @@
           "ownerId": {
             "type": "string",
             "nullable": true
+          },
+          "debtorDetails": {
+            "$ref": "#/components/schemas/DebtorDetailsResponse"
           }
         },
         "additionalProperties": false
@@ -257,6 +354,34 @@
           "expire": {
             "type": "string",
             "format": "date-time",
+            "nullable": true
+          },
+          "debtorId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateDebtorRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "DebtorDetailsResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
             "nullable": true
           }
         },

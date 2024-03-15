@@ -13,7 +13,7 @@ public static class CaseRoutesExtensions
 {
     public static void RegisterCaseRoutes(this WebApplication app)
     {
-        app.MapGet("/api/data/{id:int}", async (IMediator mediator, int id) =>
+        app.MapGet("/api/data/case/{id:int}", async (IMediator mediator, int id) =>
         {
             var caseDetails = await mediator.Send(new GetCaseDetailsById(id));
             return caseDetails is not null ? Results.Ok(caseDetails) : Results.NotFound();
@@ -21,7 +21,7 @@ public static class CaseRoutesExtensions
         .Produces<CaseDetailsResponse>((int)HttpStatusCode.OK)
         .RequireAuthorization("cases:read");
 
-        app.MapGet("/api/data", async (IMediator mediator) =>
+        app.MapGet("/api/data/case", async (IMediator mediator) =>
         {
             var cases = await mediator.Send(new GetAllCases());
             return cases is not null ? Results.Ok(cases) : Results.NotFound();
@@ -29,7 +29,7 @@ public static class CaseRoutesExtensions
         .Produces<IEnumerable<CaseDetailsResponse>>((int)HttpStatusCode.OK)
         .RequireAuthorization("cases:read");
 
-        app.MapPost("/api/data", async (IValidator<CreateCaseRequest> validator, IMediator mediator, CreateCaseRequest request, ClaimsPrincipal user) =>
+        app.MapPost("/api/data/case", async (IValidator<CreateCaseRequest> validator, IMediator mediator, CreateCaseRequest request, ClaimsPrincipal user) =>
         {
             // TODO: Maybe validation filter? https://stackoverflow.com/questions/75735862/fluentvalidation-validate-automatically-the-request-net-7-minimal-api
             validator.ValidateAndThrow(request);
