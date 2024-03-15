@@ -8,7 +8,6 @@ import Modal from '../../components/common/Modal/Modal';
 import { Button } from '../../components/common/Button/Button';
 import useCaseAdd from './useCaseAdd';
 import useGetDebtors from './useGetDebtors';
-import Loader from '../../components/common/Loader/Loader';
 import { useModal } from '../../components/common/Modal/useModal';
 import DebtorAddForm from '../../components/debtor/DebtorAddForm/DebtorAddForm';
 import { Card } from '../../components/common/Card/Card';
