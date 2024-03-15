@@ -12,13 +12,12 @@ export default function DebtorAddForm({ onDebtorAdded }: DebtorAddFormProps) {
         errors,
         onSubmit,
         mutation
-    } = useDebtorAdd();
+    } = useDebtorAdd(onDebtorAdded);
 
     return (
         <main >
             <Form onSubmit={async ()=> {
                 await onSubmit();
-                onDebtorAdded()
             }} loading={mutation.status === "loading"} error={mutation.error as Error}>
                 <div className='w-full px-3' >
                     <FormInput {...register("name", {

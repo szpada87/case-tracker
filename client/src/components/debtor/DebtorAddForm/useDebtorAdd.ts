@@ -4,8 +4,8 @@ import { CreateDebtorRequest } from "../../../shared/api/axios-client";
 import useValidationForm, { ValidationErrorInfo } from "../../../hooks/useValidationForm";
 import { AxiosError } from "axios";
 
-export default function () {
-    const { register, handleSubmit, errors, setApiValidationErrors } = useValidationForm<CreateDebtorRequest>();
+export default function (onDebtorAdded: () => void) {
+    const { register, handleSubmit, errors, setApiValidationErrors, reset } = useValidationForm<CreateDebtorRequest>();
 
     const { dataApi } = useApi();
     const queryClient = useQueryClient();
@@ -14,8 +14,8 @@ export default function () {
         mutationKey: ["debtors"],
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: ["debtors"] });
-            // This has to be done in order for the infinite query to refresh properly on mount.
-            // await queryClient.resetQueries(["debtors"]);
+            reset();
+            onDebtorAdded();
         },
         onError: (e) => {
             if (e instanceof AxiosError && e.response?.status === 400 && e.response?.data) {
