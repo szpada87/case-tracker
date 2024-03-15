@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .debtor {
+    @apply flex flex-row justify-evenly align-middle py-4 px-8;
+  }
+
+  .debtor_content {
+    @apply flex flex-col grow justify-start;
+  }
+
+  .debtor_text {
+    @apply text-lg text-left text-ct_text-800 dark:text-ct_text-50 mr-auto whitespace-normal;
+  }
+
+  .label {
+    @apply text-xs text-left font-semibold text-ct_text-500 dark:text-ct_text-300;
+  }
+}

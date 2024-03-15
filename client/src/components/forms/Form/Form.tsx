@@ -13,13 +13,16 @@ type FormProps = {
 
 export const Form = ({ children, loading, error, onSubmit }: FormProps) => {
     return (
-        <form className={classes.form} onSubmit={onSubmit}>
+        <form className={classes.form} onSubmit={(e) =>{
+            e.preventDefault();
+            onSubmit();
+        }}>
             <div className='w-full'>
                 {error && <Alert title="Error" text={error.message} />}
                 {children}
             </div>
             <div className={classes.footer}>
-                <Button disabled={loading} >Submit</Button>
+                <Button type="submit" disabled={loading} >Submit</Button>
             </div>
         </form >
     )

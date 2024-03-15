@@ -63,6 +63,12 @@ export interface CaseDetailsResponse {
      * @memberof CaseDetailsResponse
      */
     'ownerId'?: string | null;
+    /**
+     * 
+     * @type {DebtorDetailsResponse}
+     * @memberof CaseDetailsResponse
+     */
+    'debtorDetails'?: DebtorDetailsResponse;
 }
 /**
  * 
@@ -172,6 +178,44 @@ export interface CreateCaseRequest {
      * @memberof CreateCaseRequest
      */
     'expire'?: string | null;
+    /**
+     * 
+     * @type {number}
+     * @memberof CreateCaseRequest
+     */
+    'debtorId'?: number;
+}
+/**
+ * 
+ * @export
+ * @interface CreateDebtorRequest
+ */
+export interface CreateDebtorRequest {
+    /**
+     * 
+     * @type {string}
+     * @memberof CreateDebtorRequest
+     */
+    'name'?: string | null;
+}
+/**
+ * 
+ * @export
+ * @interface DebtorDetailsResponse
+ */
+export interface DebtorDetailsResponse {
+    /**
+     * 
+     * @type {number}
+     * @memberof DebtorDetailsResponse
+     */
+    'id'?: number;
+    /**
+     * 
+     * @type {string}
+     * @memberof DebtorDetailsResponse
+     */
+    'name'?: string | null;
 }
 /**
  * 
@@ -231,7 +275,40 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
          * @throws {RequiredError}
          */
         allCases: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/data`;
+            const localVarPath = `/api/data/case`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "Bearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        allDebtors: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/data/debtor`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -267,7 +344,7 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
         caseDetailsById: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'id' is not null or undefined
             assertParamExists('caseDetailsById', 'id', id)
-            const localVarPath = `/api/data/{id}`
+            const localVarPath = `/api/data/case/{id}`
                 .replace(`{${"id"}}`, encodeURIComponent(String(id)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
@@ -304,7 +381,7 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
         createCase: async (createCaseRequest: CreateCaseRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'createCaseRequest' is not null or undefined
             assertParamExists('createCase', 'createCaseRequest', createCaseRequest)
-            const localVarPath = `/api/data`;
+            const localVarPath = `/api/data/case`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -328,6 +405,82 @@ export const DataApiAxiosParamCreator = function (configuration?: Configuration)
             let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
             localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
             localVarRequestOptions.data = serializeDataIfNeeded(createCaseRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * Creates new debtor.
+         * @param {CreateDebtorRequest} createDebtorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDebtor: async (createDebtorRequest: CreateDebtorRequest, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'createDebtorRequest' is not null or undefined
+            assertParamExists('createDebtor', 'createDebtorRequest', createDebtorRequest)
+            const localVarPath = `/api/data/debtor`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "Bearer", [], configuration)
+
+
+    
+            localVarHeaderParameter['Content-Type'] = 'application/json';
+
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            localVarRequestOptions.data = serializeDataIfNeeded(createDebtorRequest, localVarRequestOptions, configuration)
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        debtorDetailsById: async (id: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'id' is not null or undefined
+            assertParamExists('debtorDetailsById', 'id', id)
+            const localVarPath = `/api/data/debtor/{id}`
+                .replace(`{${"id"}}`, encodeURIComponent(String(id)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // oauth required
+            await setOAuthToObject(localVarHeaderParameter, "Bearer", [], configuration)
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
 
             return {
                 url: toPathString(localVarUrlObj),
@@ -388,6 +541,15 @@ export const DataApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async allDebtors(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<Array<DebtorDetailsResponse>>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.allDebtors(options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -404,6 +566,26 @@ export const DataApiFp = function(configuration?: Configuration) {
          */
         async createCase(createCaseRequest: CreateCaseRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CaseDetailsResponse>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.createCase(createCaseRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * Creates new debtor.
+         * @param {CreateDebtorRequest} createDebtorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async createDebtor(createDebtorRequest: CreateDebtorRequest, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DebtorDetailsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.createDebtor(createDebtorRequest, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async debtorDetailsById(id: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<DebtorDetailsResponse>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.debtorDetailsById(id, options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -435,6 +617,14 @@ export const DataApiFactory = function (configuration?: Configuration, basePath?
         },
         /**
          * 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        allDebtors(options?: any): AxiosPromise<Array<DebtorDetailsResponse>> {
+            return localVarFp.allDebtors(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @param {number} id 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
@@ -450,6 +640,24 @@ export const DataApiFactory = function (configuration?: Configuration, basePath?
          */
         createCase(createCaseRequest: CreateCaseRequest, options?: any): AxiosPromise<CaseDetailsResponse> {
             return localVarFp.createCase(createCaseRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * Creates new debtor.
+         * @param {CreateDebtorRequest} createDebtorRequest 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        createDebtor(createDebtorRequest: CreateDebtorRequest, options?: any): AxiosPromise<DebtorDetailsResponse> {
+            return localVarFp.createDebtor(createDebtorRequest, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @param {number} id 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        debtorDetailsById(id: number, options?: any): AxiosPromise<DebtorDetailsResponse> {
+            return localVarFp.debtorDetailsById(id, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -491,6 +699,34 @@ export interface DataApiCreateCaseRequest {
 }
 
 /**
+ * Request parameters for createDebtor operation in DataApi.
+ * @export
+ * @interface DataApiCreateDebtorRequest
+ */
+export interface DataApiCreateDebtorRequest {
+    /**
+     * 
+     * @type {CreateDebtorRequest}
+     * @memberof DataApiCreateDebtor
+     */
+    readonly createDebtorRequest: CreateDebtorRequest
+}
+
+/**
+ * Request parameters for debtorDetailsById operation in DataApi.
+ * @export
+ * @interface DataApiDebtorDetailsByIdRequest
+ */
+export interface DataApiDebtorDetailsByIdRequest {
+    /**
+     * 
+     * @type {number}
+     * @memberof DataApiDebtorDetailsById
+     */
+    readonly id: number
+}
+
+/**
  * DataApi - object-oriented interface
  * @export
  * @class DataApi
@@ -505,6 +741,16 @@ export class DataApi extends BaseAPI {
      */
     public allCases(options?: AxiosRequestConfig) {
         return DataApiFp(this.configuration).allCases(options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataApi
+     */
+    public allDebtors(options?: AxiosRequestConfig) {
+        return DataApiFp(this.configuration).allDebtors(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**
@@ -527,6 +773,28 @@ export class DataApi extends BaseAPI {
      */
     public createCase(requestParameters: DataApiCreateCaseRequest, options?: AxiosRequestConfig) {
         return DataApiFp(this.configuration).createCase(requestParameters.createCaseRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * Creates new debtor.
+     * @param {DataApiCreateDebtorRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataApi
+     */
+    public createDebtor(requestParameters: DataApiCreateDebtorRequest, options?: AxiosRequestConfig) {
+        return DataApiFp(this.configuration).createDebtor(requestParameters.createDebtorRequest, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @param {DataApiDebtorDetailsByIdRequest} requestParameters Request parameters.
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DataApi
+     */
+    public debtorDetailsById(requestParameters: DataApiDebtorDetailsByIdRequest, options?: AxiosRequestConfig) {
+        return DataApiFp(this.configuration).debtorDetailsById(requestParameters.id, options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

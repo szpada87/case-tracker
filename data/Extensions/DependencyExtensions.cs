@@ -1,7 +1,6 @@
 using Data.Repository;
 using Data.Repository.DatabaseContext;
 using Microsoft.EntityFrameworkCore;
-using STAN.Client;
 
 namespace Data.Extensions;
 
@@ -11,6 +10,7 @@ public static class DependencyExtensions
     {
         builder.Services.AddDbContext<CaseDb>();
         builder.Services.AddScoped<ICaseRepository, CaseRepository>();
+        builder.Services.AddScoped<IDebtorRepository, DebtorRepository>();
         builder.Services.AddMemoryCache();
         builder.Services.AddAutoMapper(typeof(Program));
         builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(AppDomain.CurrentDomain.GetAssemblies()));

@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace Data.Models;
 
 public record Case
@@ -13,4 +15,8 @@ public record Case
     public required CaseStatus Status { get; set; }
 
     public required string OwnerId { get; set; }
+
+    public required Debtor Debtor { get; set; }
+
+    public required int DebtorId { get; set; }
 }

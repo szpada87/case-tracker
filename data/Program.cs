@@ -25,5 +25,6 @@ app.UseValidation();
 
 app.RegisterUtilityRoutes();
 app.RegisterCaseRoutes();
+app.RegisterDebtorRoutes();
 
 app.Run("http://*:3000");
